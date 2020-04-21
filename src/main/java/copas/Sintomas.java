@@ -1,3 +1,4 @@
+package main.java.copas;
 
 public class Sintomas {
     private int id;
