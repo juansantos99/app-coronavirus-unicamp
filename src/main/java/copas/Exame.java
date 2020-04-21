@@ -9,6 +9,9 @@ public class Exame {
     private String status;
     private String result;
 
+    public Exame() {
+    }
+
     public Exame(int id, String patientName, Date date, String status, String result) {
         this.setId(id);
         this.setPatientName(patientName);

@@ -8,6 +8,9 @@ public class ProfissionalDeSaude {
     private String name;
     private String role;
 
+    public ProfissionalDeSaude() {
+    }
+
     public ProfissionalDeSaude(int id, int rg, int cpf, String name, String role) {
         this.setId(id);
         this.setRg(rg);
