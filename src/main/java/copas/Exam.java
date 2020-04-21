@@ -2,17 +2,17 @@ package main.java.copas;
 
 import java.util.Date;
 
-public class Exame {
+public class Exam {
     private int id;
     private String patientName;
     private Date date;
     private String status;
     private String result;
 
-    public Exame() {
+    public Exam() {
     }
 
-    public Exame(int id, String patientName, Date date, String status, String result) {
+    public Exam(int id, String patientName, Date date, String status, String result) {
         this.setId(id);
         this.setPatientName(patientName);
         this.setDate(date);
