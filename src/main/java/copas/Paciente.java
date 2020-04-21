@@ -5,13 +5,25 @@ import java.util.Date;
 public class Paciente {
     private int cpf;
     private int rg;
-    private String nome;
+    private String name;
     private String email;
     private String susCard;
     private Date bornDate;
     private String address;
     private String password;
     private String status;
+
+    public Paciente(int cpf, int rg, String name, String email, String susCard, Date bornDate, String address,
+            String password, String status) {
+        this.setCpf(cpf);
+        this.setRg(rg);
+        this.setName(name);
+        this.setEmail(email);
+        this.setSusCard(susCard);
+        this.setBornDate(bornDate);
+        this.setAddress(address);
+        this.setPassword(password);
+    }
 
     public int getCpf() {
         return this.cpf;
@@ -29,12 +41,12 @@ public class Paciente {
         this.rg = rg;
     }
 
-    public String getNome() {
-        return this.nome;
+    public String getName() {
+        return this.name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {

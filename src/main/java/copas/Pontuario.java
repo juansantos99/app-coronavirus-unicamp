@@ -10,6 +10,16 @@ public class Pontuario {
     private String diagnosis;
     private String exam;
 
+    public Pontuario(Date date, String status, String patientName, String team, String diagnosis, String exam) {
+        this.setDate(date);
+        this.setStatus(status);
+        this.setPatientName(patientName);
+        this.setTeam(team);
+        this.setDiagnosis(diagnosis);
+        this.setExam(exam);
+
+    }
+
     public Date getDate() {
         return this.date;
     }

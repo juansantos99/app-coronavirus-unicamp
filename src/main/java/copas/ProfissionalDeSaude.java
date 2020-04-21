@@ -8,6 +8,14 @@ public class ProfissionalDeSaude {
     private String name;
     private String role;
 
+    public ProfissionalDeSaude(int id, int rg, int cpf, String name, String role) {
+        this.setId(id);
+        this.setRg(rg);
+        this.setCpf(cpf);
+        this.setName(name);
+        this.setRole(role);
+    }
+
     public int getId() {
         return this.id;
     }
@@ -32,19 +40,19 @@ public class ProfissionalDeSaude {
         this.cpf = cpf;
     }
 
-    public int getName() {
+    public String getName() {
         return this.name;
     }
 
-    public void setName(int name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public int getRole() {
+    public String getRole() {
         return this.role;
     }
 
-    public void setRole(int role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

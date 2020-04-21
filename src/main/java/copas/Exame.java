@@ -9,6 +9,14 @@ public class Exame {
     private String status;
     private String result;
 
+    public Exame(int id, String patientName, Date date, String status, String result) {
+        this.setId(id);
+        this.setPatientName(patientName);
+        this.setDate(date);
+        this.setStatus(status);
+        this.setResult(result);
+    }
+
     public int getId() {
         return this.id;
     }
