@@ -4,6 +4,11 @@ public class Symptons {
     private int id;
     private String description;
 
+    public Sintomas(int id, String description) {
+        this.setId(id);
+        this.setDescription(description);
+    }
+
     public int getId() {
         return this.id;
     }
@@ -12,11 +17,11 @@ public class Symptons {
         this.id = id;
     }
 
-    public int getDescription() {
+    public String getDescription() {
         return this.description;
     }
 
-    public void setDescription(int description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
