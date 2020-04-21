@@ -13,6 +13,9 @@ public class Patient {
     private String password;
     private String status;
 
+    public Paciente() {
+    }
+
     public Paciente(int cpf, int rg, String name, String email, String susCard, Date bornDate, String address,
             String password, String status) {
         this.setCpf(cpf);

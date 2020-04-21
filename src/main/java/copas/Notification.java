@@ -12,6 +12,9 @@ public class Notification {
     private String mailerName;
     private Date sendDate;
 
+    public Notification() {
+    }
+
     public Notification(int id, String notification, String message, Date scheduling, String recipientName,
             String schedulingStatus, String mailerName, Date sendDate) {
         this.setId(id);

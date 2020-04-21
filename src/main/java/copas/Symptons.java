@@ -4,6 +4,9 @@ public class Symptons {
     private int id;
     private String description;
 
+    public Sintomas() {
+    }
+
     public Sintomas(int id, String description) {
         this.setId(id);
         this.setDescription(description);

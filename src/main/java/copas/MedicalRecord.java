@@ -10,6 +10,9 @@ public class MedicalRecord {
     private String diagnosis;
     private String exam;
 
+    public Pontuario() {
+    }
+
     public Pontuario(Date date, String status, String patientName, String team, String diagnosis, String exam) {
         this.setDate(date);
         this.setStatus(status);
