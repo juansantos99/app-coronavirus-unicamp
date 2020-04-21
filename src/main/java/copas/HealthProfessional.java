@@ -1,7 +1,6 @@
-
 package main.java.copas;
 
-public class ProfissionalDeSaude {
+public class HealthProfessional {
     private int id;
     private int rg;
     private int cpf;
@@ -48,30 +47,30 @@ public class ProfissionalDeSaude {
         this.role = role;
     }
 
-    public void cadastrar() {
+    public void register() {
     }
 
-    public void consultar() {
+    public void consult() {
     }
 
-    public void visualizarPaciente() {
+    public void showPatient() {
     }
 
-    public void consultarAgenda() {
+    public void consultSchedule() {
     }
 
-    public void agendarVisita() {
+    public void scheduleVisit() {
     }
 
-    public void baixarVisita() {
+    public void getVisit() {
     }
 
-    public void registrarPontuario() {
+    public void registerMedicalReport() {
     }
 
-    public void atualizarStatus() {
+    public void updateStatus() {
     }
 
-    public void contatarPaciente() {
+    public void contactPatient() {
     }
 }

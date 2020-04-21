@@ -2,7 +2,7 @@ package main.java.copas;
 
 import java.util.Date;
 
-public class Paciente {
+public class Patient {
     private int cpf;
     private int rg;
     private String nome;
@@ -85,24 +85,24 @@ public class Paciente {
         this.status = status;
     }
 
-    public void atualizarSintomas() {
+    public void updateSymptons() {
     }
 
-    public void cadastrarDados() {
+    public void registerData() {
     }
 
-    public void consultarNotificacoes() {
+    public void consultNotifications() {
     }
 
-    public void listarSintomas() {
+    public void listSymptons() {
     }
 
-    public void visualizarStatus() {
+    public void showStatus() {
     }
 
-    public void consultarMensagens() {
+    public void consultMessages() {
     }
 
-    public void consultarAgenda() {
+    public void consultSchedule() {
     }
 }

@@ -2,7 +2,7 @@ package main.java.copas;
 
 import java.util.Date;
 
-public class Notificacao {
+public class Notification {
     private int id;
     private String notification;
     private String message;
@@ -10,7 +10,7 @@ public class Notificacao {
     private String recipientName;
     private String schedulingStatus;
     private String mailerName;
-    private Date senderAt;
+    private Date sendDate;
 
     public int getId() {
         return this.id;
@@ -68,12 +68,12 @@ public class Notificacao {
         this.mailerName = mailerName;
     }
 
-    public Date getSenderAt() {
-        return this.senderAt;
+    public Date getSendDate() {
+        return this.sendDate;
     }
 
-    public void setSenderAt(Date senderAt) {
-        this.senderAt = senderAt;
+    public void setSendDate(Date sendDate) {
+        this.sendDate = sendDate;
     }
 
 }

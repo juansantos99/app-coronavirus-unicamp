@@ -1,6 +1,6 @@
 package main.java.copas;
 
-public class Sintomas {
+public class Symptons {
     private int id;
     private String description;
 
