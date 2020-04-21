@@ -2,7 +2,7 @@ package main.java.copas;
 
 import java.util.Date;
 
-public class Pontuario {
+public class MedicalRecord {
     private Date date;
     private String status;
     private String patientName;
@@ -17,7 +17,6 @@ public class Pontuario {
         this.setTeam(team);
         this.setDiagnosis(diagnosis);
         this.setExam(exam);
-
     }
 
     public Date getDate() {
@@ -67,5 +66,4 @@ public class Pontuario {
     public void setExam(String exam) {
         this.exam = exam;
     }
-
 }

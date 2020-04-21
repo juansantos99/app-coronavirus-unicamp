@@ -7,7 +7,7 @@ public class HealthProfessional {
     private String name;
     private String role;
 
-    public ProfissionalDeSaude(int id, int rg, int cpf, String name, String role) {
+    public HealthProfessional(int id, int rg, int cpf, String name, String role) {
         this.setId(id);
         this.setRg(rg);
         this.setCpf(cpf);

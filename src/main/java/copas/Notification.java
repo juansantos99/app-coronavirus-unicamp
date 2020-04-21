@@ -12,8 +12,8 @@ public class Notification {
     private String mailerName;
     private Date sendDate;
 
-    public Notificacao(int id, String notification, String message, Date scheduling, String recipientName,
-            String schedulingStatus, String mailerName, Date senderAt) {
+    public Notification(int id, String notification, String message, Date scheduling, String recipientName,
+            String schedulingStatus, String mailerName, Date sendDate) {
         this.setId(id);
         this.setNotification(notification);
         this.setMessage(message);
@@ -21,7 +21,7 @@ public class Notification {
         this.setRecipientName(recipientName);
         this.setSchedulingStatus(schedulingStatus);
         this.setMailerName(mailerName);
-        this.setSenderAt(senderAt);
+        this.setSendDate(sendDate);
     }
 
     public int getId() {
