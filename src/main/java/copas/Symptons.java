@@ -4,10 +4,10 @@ public class Symptons {
     private int id;
     private String description;
 
-    public Sintomas() {
+    public Symptons() {
     }
 
-    public Sintomas(int id, String description) {
+    public Symptons(int id, String description) {
         this.setId(id);
         this.setDescription(description);
     }
