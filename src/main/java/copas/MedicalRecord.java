@@ -5,18 +5,18 @@ import java.util.Date;
 public class MedicalRecord {
     private Date date;
     private String status;
-    private String patientName;
+    private int patientCpf;
     private String team;
     private String diagnosis;
     private String exam;
 
-    public Pontuario() {
+    public MedicalRecord() {
     }
 
-    public Pontuario(Date date, String status, String patientName, String team, String diagnosis, String exam) {
+    public MedicalRecord(Date date, String status, int patientCpf, String team, String diagnosis, String exam) {
         this.setDate(date);
         this.setStatus(status);
-        this.setPatientName(patientName);
+        this.setPatientCpf(patientCpf);
         this.setTeam(team);
         this.setDiagnosis(diagnosis);
         this.setExam(exam);
@@ -38,12 +38,12 @@ public class MedicalRecord {
         this.status = status;
     }
 
-    public String getPatientName() {
-        return this.patientName;
+    public int getPatientCpf() {
+        return this.patientCpf;
     }
 
-    public void setPatientName(String patientName) {
-        this.patientName = patientName;
+    public void setPatientCpf(int patientCpf) {
+        this.patientCpf = patientCpf;
     }
 
     public String getTeam() {
