@@ -106,7 +106,21 @@ public class Patient {
     public void registerData() {
     }
 
-    public void consultNotifications() {
+    public Notification[] consultNotifications() {
+        Notification[] notifications = {};
+        Notification notification = new Notification();
+
+        notification.setNotification("notification");
+        notification.setMessage("message");
+        notification.setScheduling(new Date(new Date().getTime() + 1000 * 60 * 60 * 24)); // Add 1 day
+        notification.setRecipientName("recipientName");
+        notification.setSchedulingStatus("send");
+        notification.setMailerName("mailerName");
+        notification.setSendDate(new Date());
+
+        notifications[notifications.length] = notification;
+
+        return notifications;
     }
 
     public void listSymptons() {
