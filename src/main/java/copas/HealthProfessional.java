@@ -58,30 +58,39 @@ public class HealthProfessional {
         this.role = role;
     }
 
-    public void register() {
+    public void registerPatient() {
+        // Cadastrar novo paciente
     }
 
     public void consult() {
+        // Retorna todos pacientes que tem no banco, com filtro: sintoma, regiao, todos
     }
 
     public void showPatient() {
+        // mostra um paciente pelo ID ou CPF
     }
 
     public void consultSchedule() {
+        // Retorna os agendamentos que ele agendou
     }
 
     public void scheduleVisit() {
+        // Cria um agendamento
     }
 
     public void getVisit() {
+        // Baixa o prontuario de um paciente em PDF
     }
 
     public void registerMedicalReport() {
+        // Cria o prontuario
     }
 
     public void updateStatus() {
+        // Muda o status de um paciente
     }
 
     public void contactPatient() {
+        // Manda uma notificação para o paciente pelo CPF
     }
 }
