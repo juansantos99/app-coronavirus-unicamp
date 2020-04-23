@@ -108,8 +108,8 @@ public class Patient {
 
     public Notification[] consultNotifications() {
         Notification[] notifications = {};
-        Notification notification = new Notification();
 
+        Notification notification = new Notification();
         notification.setNotification("notification");
         notification.setMessage("message");
         notification.setScheduling(new Date(new Date().getTime() + 1000 * 60 * 60 * 24)); // Add 1 day
