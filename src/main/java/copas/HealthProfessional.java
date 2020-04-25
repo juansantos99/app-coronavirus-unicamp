@@ -1,5 +1,7 @@
 package main.java.copas;
 
+import java.util.Scanner;
+
 public class HealthProfessional {
     private int id;
     private int rg;
@@ -94,8 +96,8 @@ public class HealthProfessional {
 		String response;
 
 		try {
-       	System.out.println("O paciente está infectado?");
-    	System.out.println("Digite: Sim ou Não");
+       	System.out.println("O paciente estï¿½ infectado?");
+    	System.out.println("Digite: Sim ou Nï¿½o");
     	response = scan.nextLine();
     	
     		if (response == "Sim") {
