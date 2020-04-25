@@ -1,6 +1,10 @@
 package main.java.copas;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Date;
+
+import com.sun.jdi.connect.spi.Connection;
 
 public class Patient {
     private int cpf;
@@ -99,9 +103,20 @@ public class Patient {
     public void setStatus(String status) {
         this.status = status;
     }
+    public void updateSymptoms(int cpf, int idSintoma){
 
-    public void updateSymptons() {
-    }
+    	Connection bd = null;
+		PreparedStatement preparado = null;
+		try{
+			bd = bd.abrirBDConn();
+			preparado = bd.prepareStatment("INSERT into pacientes_sintomas values (?,?)");
+			preparado.setString(1, cpf);
+			preparado.setString(2, idSintoma);
+			preparado.executeUpdate();
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+	}
 
     public void registerData() {
     }
