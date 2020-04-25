@@ -64,7 +64,17 @@ public class HealthProfessional {
     public void consult() {
     }
 
-    public void showPatient() {
+    public void showPatient(Patient patient) {
+ 
+    	if (patient.getCpf() != 0) {
+    		System.out.println(patient.getCpf());
+    		System.out.println(patient.getName());
+    		System.out.println(patient.getEmail());
+    		System.out.println(patient.getName());
+    		System.out.println(patient.getSusCard());
+    		System.out.println(patient.getBornDate());
+    		System.out.println(patient.getStatus());
+    	}
     }
 
     public void consultSchedule() {
@@ -79,7 +89,32 @@ public class HealthProfessional {
     public void registerMedicalReport() {
     }
 
-    public void updateStatus() {
+    public void updateStatus(Patient patient) {
+		Scanner scan = new Scanner(System.in);
+		String response;
+
+		try {
+       	System.out.println("O paciente está infectado?");
+    	System.out.println("Digite: Sim ou Não");
+    	response = scan.nextLine();
+    	
+    		if (response == "Sim") {
+    		 patient.setStatus("infected");
+    		}
+    		else {
+    	
+    			if(patient.getSymptons().length >= 3) {
+    				patient.setStatus("suspect");
+    			}
+    	
+    			if(patient.getSymptons().length == 0) {
+    				patient.setStatus("descarted");
+    			}   
+    		}
+    		
+    	}finally {
+    		scan.close();
+    	}
     }
 
     public void contactPatient() {
