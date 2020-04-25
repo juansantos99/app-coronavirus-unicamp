@@ -64,7 +64,18 @@ public class HealthProfessional {
     public void consult() {
     }
 
-    public void showPatient() {
+    public void showPatient(Patient patient) {
+ 
+    	Symptons symptons = new Symptons();
+    	if (patient.getCpf() != 0) {
+    		System.out.println(patient.getCpf());
+    		System.out.println(patient.getName());
+    		System.out.println(patient.getEmail());
+    		System.out.println(patient.getName());
+    		System.out.println(patient.getSusCard());
+    		System.out.println(patient.getBornDate());
+    		System.out.println(patient.getStatus());
+    	}
     }
 
     public void consultSchedule() {
