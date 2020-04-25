@@ -66,7 +66,6 @@ public class HealthProfessional {
 
     public void showPatient(Patient patient) {
  
-    	Symptons symptons = new Symptons();
     	if (patient.getCpf() != 0) {
     		System.out.println(patient.getCpf());
     		System.out.println(patient.getName());
@@ -90,7 +89,32 @@ public class HealthProfessional {
     public void registerMedicalReport() {
     }
 
-    public void updateStatus() {
+    public void updateStatus(Patient patient) {
+		Scanner scan = new Scanner(System.in);
+		String response;
+
+		try {
+       	System.out.println("O paciente está infectado?");
+    	System.out.println("Digite: Sim ou Não");
+    	response = scan.nextLine();
+    	
+    		if (response == "Sim") {
+    		 patient.setStatus("infected");
+    		}
+    		else {
+    	
+    			if(patient.getSymptons().length >= 3) {
+    				patient.setStatus("suspect");
+    			}
+    	
+    			if(patient.getSymptons().length == 0) {
+    				patient.setStatus("descarted");
+    			}   
+    		}
+    		
+    	}finally {
+    		scan.close();
+    	}
     }
 
     public void contactPatient() {
