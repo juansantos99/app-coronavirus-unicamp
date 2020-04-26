@@ -105,16 +105,16 @@ public class HealthProfessional {
     		}
     		else {
     	
-    			if(patient.getSymptons().length >= 3) {
-    				patient.setStatus("suspect");
-    			}
+//    			if(patient.getSymptons().length >= 3) {
+//    				patient.setStatus("suspect");
+//    			}
     	
-    			if(patient.getSymptons().length == 0) {
-    				patient.setStatus("descarted");
-    			}   
+//    			if(patient.getSymptons().length == 0) {
+//    				patient.setStatus("descarted");
+//    			}   
     		}
     		
-    	}finally {
+    	} finally {
     		scan.close();
     	}
     }

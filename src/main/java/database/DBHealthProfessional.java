@@ -1,5 +1,7 @@
 package main.java.database;
 
+import main.java.database.DBConnection;
+
 import main.java.copas.HealthProfessional;
 
 public class DBHealthProfessional {
