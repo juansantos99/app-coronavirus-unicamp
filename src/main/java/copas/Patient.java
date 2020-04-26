@@ -12,6 +12,7 @@ public class Patient {
     private String address;
     private String password;
     private String status;
+    private Symptons[] symptons;
 
     public String toString() {
     	return "Nome: " + this.name + " - Endereço: " + this.address + " - Nascimento: " + this.bornDate + " - Estado: " + this.status;
@@ -101,10 +102,20 @@ public class Patient {
         this.status = status;
     }
 
+    public Symptons[] getSymptons() {
+        return this.symptons;
+    }
+
+    public void setSymptons(Symptons[] symptons) {
+        this.symptons = symptons;
+    }
+
     public void updateSymptons() {
+        // Atualizar ou remover um sintoma
     }
 
     public void registerData() {
+        // Cadastrar paciente
     }
 
     public Notification[] consultNotifications() {
@@ -125,14 +136,22 @@ public class Patient {
     }
 
     public void listSymptons() {
+        // Listar sintomas
     }
 
-    public void showStatus() {
-    }
+    public String showStatus() {
+        if (this.getStatus() != null) {
+            return this.getStatus();
+        }
 
-    public void consultMessages() {
+        if (this.getSymptons().length >= 3) {
+            return "suspect";
+        }
+
+        return "discarded";
     }
 
     public void consultSchedule() {
+        // Ver uma notificação de agenda
     }
 }
