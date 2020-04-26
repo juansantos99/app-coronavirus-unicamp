@@ -81,12 +81,12 @@ public class HealthProfessional {
         }
 
         if (cep != "") {
-            queryFilter = queryFilter + " ";
+            queryFilter = queryFilter + " `cep`=" + cep;
 
             filter = true;
         }
 
-        String query = "";
+        String query = "SELECT * FROM ``";
 
         if (filter) {
             query = query + queryFilter;
