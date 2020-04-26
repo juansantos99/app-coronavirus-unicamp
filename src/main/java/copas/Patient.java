@@ -8,15 +8,16 @@ public class Patient {
     private String name;
     private String email;
     private String susCard;
-    private Date bornDate;
+    private String bornDate;
     private String address;
     private String password;
     private String status;
 
-    public Patient() {
+    public String toString() {
+    	return "Nome: " + this.name + " - Endereço: " + this.address + " - Nascimento: " + this.bornDate + " - Estado: " + this.status;
     }
 
-    public Patient(int cpf, int rg, String name, String email, String susCard, Date bornDate, String address,
+    public Patient(int cpf, int rg, String name, String email, String susCard, String bornDate, String address,
             String password, String status) {
         this.setCpf(cpf);
         this.setRg(rg);
@@ -68,11 +69,11 @@ public class Patient {
         this.susCard = susCard;
     }
 
-    public Date getBornDate() {
+    public String getBornDate() {
         return this.bornDate;
     }
 
-    public void setBornDate(Date bornDate) {
+    public void setBornDate(String bornDate) {
         this.bornDate = bornDate;
     }
 
