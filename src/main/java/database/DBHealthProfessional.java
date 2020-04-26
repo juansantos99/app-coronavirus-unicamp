@@ -14,6 +14,7 @@ import main.java.copas.Patient;
 
 public class DBHealthProfessional {
 	Connection connection = null;
+	private int id = 0;
 	
 	public DBHealthProfessional() {
 		try {
@@ -21,6 +22,12 @@ public class DBHealthProfessional {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public int nextId() {
+		this.id = this.id + 1;
+
+		return this.id;
 	}
 	
 	public HealthProfessional SignUp(int id) {

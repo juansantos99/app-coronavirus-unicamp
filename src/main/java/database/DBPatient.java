@@ -15,7 +15,7 @@ public class DBPatient {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public Patient SignUp(int cpf, String password) {
 		Patient patient = null
 				;

@@ -33,16 +33,16 @@ public class Main {
 
 		System.out.println("Você é um médico ou um paciente?\n1- Médico \n2- Paciente");
 		iOpt = scan.nextInt();
-		
+
 		System.out.println("Você deseja: \n1- Fazer login \n2- Cadastrar");
 		iAction = scan.nextInt();
-		
+
 		while (iAction < 1 || iAction > 2) {
 			System.out.println("Opção inválida!");
 			System.out.println("Você deseja: \n1- Fazer login \n2- Cadastrar");
 			iAction = scan.nextInt();
 		}
-		
+
 		switch (iOpt) {
 		case 1:
 			if (iAction == 1) {
@@ -125,7 +125,7 @@ public class Main {
 			
 			break;
 		}
-		
+
 		scan.close();
 	}
 
