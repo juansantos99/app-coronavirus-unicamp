@@ -10,9 +10,9 @@ public class HealthProfessional {
     private String role;
 
     public String toString() {
-    	return "Nome: " + this.name + " - Função: " + this.role;
+        return "Nome: " + this.name + " - Função: " + this.role;
     }
-    
+
     public HealthProfessional() {
     }
 
@@ -73,16 +73,16 @@ public class HealthProfessional {
     }
 
     public void showPatient(Patient patient) {
- 
-    	if (patient.getCpf() != 0) {
-    		System.out.println(patient.getCpf());
-    		System.out.println(patient.getName());
-    		System.out.println(patient.getEmail());
-    		System.out.println(patient.getName());
-    		System.out.println(patient.getSusCard());
-    		System.out.println(patient.getBornDate());
-    		System.out.println(patient.getStatus());
-    	}
+
+        if (patient.getCpf() != 0) {
+            System.out.println(patient.getCpf());
+            System.out.println(patient.getName());
+            System.out.println(patient.getEmail());
+            System.out.println(patient.getName());
+            System.out.println(patient.getSusCard());
+            System.out.println(patient.getBornDate());
+            System.out.println(patient.getStatus());
+        }
     }
 
     public void consultSchedule() {
@@ -102,34 +102,39 @@ public class HealthProfessional {
     }
 
     public void updateStatus(Patient patient) {
-		Scanner scan = new Scanner(System.in);
-		String response;
+        Scanner scan = new Scanner(System.in);
+        String response;
 
-		try {
-       	System.out.println("O paciente est� infectado?");
-    	System.out.println("Digite: Sim ou N�o");
-    	response = scan.nextLine();
-    	
-    		if (response == "Sim") {
-    		 patient.setStatus("infected");
-    		}
-    		else {
-    	
-//    			if(patient.getSymptons().length >= 3) {
-//    				patient.setStatus("suspect");
-//    			}
-    	
-//    			if(patient.getSymptons().length == 0) {
-//    				patient.setStatus("descarted");
-//    			}   
-    		}
-    		
-    	} finally {
-    		scan.close();
-    	}
+        try {
+            System.out.println("O paciente est� infectado?");
+            System.out.println("Digite: Sim ou N�o");
+            response = scan.nextLine();
+
+            if (response == "Sim") {
+                patient.setStatus("infected");
+            } else {
+
+                // if(patient.getSymptons().length >= 3) {
+                // patient.setStatus("suspect");
+                // }
+
+                // if(patient.getSymptons().length == 0) {
+                // patient.setStatus("descarted");
+                // }
+            }
+
+        } finally {
+            scan.close();
+        }
     }
 
-    public void contactPatient() {
+    public void contactPatient(int CPF, String message) {
         // Manda uma notificação para o paciente pelo CPF
+        Notification notification = new Notification();
+
+        notification.setMessage(message);
+
+        String query = "INSERT INTO `notification`";
+
     }
 }
