@@ -8,16 +8,17 @@ public class Patient {
     private String name;
     private String email;
     private String susCard;
-    private Date bornDate;
+    private String bornDate;
     private String address;
     private String password;
     private String status;
     private Symptons[] symptons;
 
-    public Patient() {
+    public String toString() {
+    	return "Nome: " + this.name + " - Endereço: " + this.address + " - Nascimento: " + this.bornDate + " - Estado: " + this.status;
     }
 
-    public Patient(int cpf, int rg, String name, String email, String susCard, Date bornDate, String address,
+    public Patient(int cpf, int rg, String name, String email, String susCard, String bornDate, String address,
             String password, String status) {
         this.setCpf(cpf);
         this.setRg(rg);
@@ -69,11 +70,11 @@ public class Patient {
         this.susCard = susCard;
     }
 
-    public Date getBornDate() {
+    public String getBornDate() {
         return this.bornDate;
     }
 
-    public void setBornDate(Date bornDate) {
+    public void setBornDate(String bornDate) {
         this.bornDate = bornDate;
     }
 
@@ -117,8 +118,21 @@ public class Patient {
         // Cadastrar paciente
     }
 
-    public void consultNotifications() {
-        // Retorna todas as notificações dele
+    public Notification[] consultNotifications() {
+        Notification[] notifications = {};
+
+        Notification notification = new Notification();
+        notification.setNotification("notification");
+        notification.setMessage("message");
+        notification.setScheduling(new Date(new Date().getTime() + 1000 * 60 * 60 * 24)); // Add 1 day
+        notification.setRecipientName("recipientName");
+        notification.setSchedulingStatus("send");
+        notification.setMailerName("mailerName");
+        notification.setSendDate(new Date());
+
+        notifications[notifications.length] = notification;
+
+        return notifications;
     }
 
     public void listSymptons() {

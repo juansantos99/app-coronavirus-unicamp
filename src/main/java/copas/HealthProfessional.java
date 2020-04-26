@@ -1,19 +1,25 @@
 package main.java.copas;
 
+import java.util.Scanner;
+
 public class HealthProfessional {
     private int id;
-    private int rg;
     private int cpf;
+    private int rg;
     private String name;
     private String role;
 
+    public String toString() {
+    	return "Nome: " + this.name + " - Função: " + this.role;
+    }
+    
     public HealthProfessional() {
     }
 
-    public HealthProfessional(int id, int rg, int cpf, String name, String role) {
+    public HealthProfessional(int id, int cpf, int rg, String name, String role) {
         this.setId(id);
-        this.setRg(rg);
         this.setCpf(cpf);
+        this.setRg(rg);
         this.setName(name);
         this.setRole(role);
     }
@@ -66,8 +72,17 @@ public class HealthProfessional {
         // Retorna todos pacientes que tem no banco, com filtro: sintoma, regiao, todos
     }
 
-    public void showPatient() {
-        // mostra um paciente pelo ID ou CPF
+    public void showPatient(Patient patient) {
+ 
+    	if (patient.getCpf() != 0) {
+    		System.out.println(patient.getCpf());
+    		System.out.println(patient.getName());
+    		System.out.println(patient.getEmail());
+    		System.out.println(patient.getName());
+    		System.out.println(patient.getSusCard());
+    		System.out.println(patient.getBornDate());
+    		System.out.println(patient.getStatus());
+    	}
     }
 
     public void consultSchedule() {
@@ -86,8 +101,32 @@ public class HealthProfessional {
         // Cria o prontuario
     }
 
-    public void updateStatus() {
-        // Muda o status de um paciente
+    public void updateStatus(Patient patient) {
+		Scanner scan = new Scanner(System.in);
+		String response;
+
+		try {
+       	System.out.println("O paciente est� infectado?");
+    	System.out.println("Digite: Sim ou N�o");
+    	response = scan.nextLine();
+    	
+    		if (response == "Sim") {
+    		 patient.setStatus("infected");
+    		}
+    		else {
+    	
+//    			if(patient.getSymptons().length >= 3) {
+//    				patient.setStatus("suspect");
+//    			}
+    	
+//    			if(patient.getSymptons().length == 0) {
+//    				patient.setStatus("descarted");
+//    			}   
+    		}
+    		
+    	} finally {
+    		scan.close();
+    	}
     }
 
     public void contactPatient() {
