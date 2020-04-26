@@ -72,12 +72,24 @@ public class HealthProfessional {
         // Retorna todos pacientes que tem no banco, com filtro: sintoma, regiao
         Patient[] patients = {};
 
+        String queryFilter = " WHERE";
+        boolean filter = false;
         if (sympstons.length > 0) {
+            queryFilter = queryFilter + " ";
 
+            filter = true;
         }
 
         if (cep != "") {
+            queryFilter = queryFilter + " ";
 
+            filter = true;
+        }
+
+        String query = "";
+
+        if (filter) {
+            query = query + queryFilter;
         }
 
         patients[patients.length] = new Patient(0, 0, "name", "email", "susCard", "bornDate", "address", "password",
