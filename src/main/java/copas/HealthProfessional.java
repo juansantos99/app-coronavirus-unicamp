@@ -4,18 +4,22 @@ import java.util.Scanner;
 
 public class HealthProfessional {
     private int id;
-    private int rg;
     private int cpf;
+    private int rg;
     private String name;
     private String role;
 
+    public String toString() {
+    	return "Nome: " + this.name + " - Função: " + this.role;
+    }
+    
     public HealthProfessional() {
     }
 
-    public HealthProfessional(int id, int rg, int cpf, String name, String role) {
+    public HealthProfessional(int id, int cpf, int rg, String name, String role) {
         this.setId(id);
-        this.setRg(rg);
         this.setCpf(cpf);
+        this.setRg(rg);
         this.setName(name);
         this.setRole(role);
     }

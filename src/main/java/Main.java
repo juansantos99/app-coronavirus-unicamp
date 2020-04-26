@@ -48,16 +48,19 @@ public class Main {
 			if (iAction == 1) {
 				System.out.println("Digite seu ID:");
 				iId = scan.nextInt();
+				scan.nextLine();
 				
-				HealthProfessional doctor = dbhpMenu.SignIn(iId);
+				HealthProfessional doctor = dbhpMenu.SignUp(iId);
 				
 				System.out.println(doctor);
 			} else {
 				System.out.println("Digite seu CPF:");
 				iCpf = scan.nextInt();
+				scan.nextLine();
 				
 				System.out.println("Digite seu RG:");
 				iRg = scan.nextInt();
+				scan.nextLine();
 				
 				System.out.println("Digite seu nome:");
 				sName = scan.nextLine();
@@ -65,7 +68,7 @@ public class Main {
 				System.out.println("Digite sua função:");
 				sRole = scan.nextLine();
 				
-				HealthProfessional doctor = dbhpMenu.SignUp(iRg, iCpf, sName, sRole);
+				HealthProfessional doctor = dbhpMenu.SignIn(iCpf, iRg, sName, sRole);
 				
 				System.out.println(doctor);
 			}
@@ -75,6 +78,7 @@ public class Main {
 			if (iAction == 1) {
 				System.out.println("Digite seu CPF:");
 				iCpf = scan.nextInt();
+				scan.nextLine();
 				System.out.println("Digite sua senha:");
 				sPassword = scan.nextLine();
 				

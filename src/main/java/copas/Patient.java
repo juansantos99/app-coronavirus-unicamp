@@ -14,7 +14,7 @@ public class Patient {
     private String status;
 
     public String toString() {
-    	return "Abacaxi";
+    	return "Nome: " + this.name + " - Endereço: " + this.address + " - Nascimento: " + this.bornDate + " - Estado: " + this.status;
     }
 
     public Patient(int cpf, int rg, String name, String email, String susCard, String bornDate, String address,
