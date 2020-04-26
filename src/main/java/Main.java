@@ -1,9 +1,7 @@
 package main.java;
 
-import java.util.Date;
 import java.util.Scanner;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import main.java.copas.*;
 import main.java.database.*;
 
@@ -11,8 +9,13 @@ public class Main {
 
 	public static void main(String[] args) throws ParseException {
 		Scanner scan = new Scanner(System.in);
+		
+		DBConnection.main();
+		
 		DBPatient dbpMenu = new DBPatient();
 		DBHealthProfessional dbhpMenu = new DBHealthProfessional();
+		
+		HealthProfessional doc = null;
 		
 		int iId = 0;
 		int iRg = 0;
@@ -23,8 +26,7 @@ public class Main {
 	    String sSusCard = "";
 	    String sAddress = "";
 	    String sPassword = "";
-	    String sStatus = "";
-	    Date dBornDate = new Date();
+	    String sBornDate = "";
 		
 		int iOpt = 0;
 		int iAction = 0;
@@ -46,16 +48,19 @@ public class Main {
 			if (iAction == 1) {
 				System.out.println("Digite seu ID:");
 				iId = scan.nextInt();
+				scan.nextLine();
 				
-				HealthProfessional doctor = dbhpMenu.SignIn(iId);
+				HealthProfessional doctor = dbhpMenu.SignUp(iId);
 				
 				System.out.println(doctor);
 			} else {
 				System.out.println("Digite seu CPF:");
 				iCpf = scan.nextInt();
+				scan.nextLine();
 				
 				System.out.println("Digite seu RG:");
 				iRg = scan.nextInt();
+				scan.nextLine();
 				
 				System.out.println("Digite seu nome:");
 				sName = scan.nextLine();
@@ -63,7 +68,7 @@ public class Main {
 				System.out.println("Digite sua função:");
 				sRole = scan.nextLine();
 				
-				HealthProfessional doctor = dbhpMenu.SignUp(iRg, iCpf, sName, sRole);
+				HealthProfessional doctor = dbhpMenu.SignIn(iCpf, iRg, sName, sRole);
 				
 				System.out.println(doctor);
 			}
@@ -73,6 +78,7 @@ public class Main {
 			if (iAction == 1) {
 				System.out.println("Digite seu CPF:");
 				iCpf = scan.nextInt();
+				scan.nextLine();
 				System.out.println("Digite sua senha:");
 				sPassword = scan.nextLine();
 				
@@ -83,10 +89,17 @@ public class Main {
 			} else {
 				System.out.println("Digite seu CPF:");
 				iCpf = scan.nextInt();
+				scan.nextLine();
+				
+				while (dbpMenu.UserExists(iCpf)) {
+					System.out.println("Usuário já existe, digite novamente o CPF.");
+					iCpf = scan.nextInt();
+					scan.nextLine();
+				} 
 				
 				System.out.println("Digite seu RG:");
 				iRg = scan.nextInt();
-				
+				scan.nextLine();
 				System.out.println("Digite seu nome:");
 				sName = scan.nextLine();
 				
@@ -97,7 +110,7 @@ public class Main {
 				sSusCard = scan.nextLine();
 				
 				System.out.println("Digite sua data de nascimento:");
-				dBornDate = new SimpleDateFormat("dd/MM/yyyy").parse(scan.nextLine());
+				sBornDate = scan.nextLine();
 				
 				System.out.println("Digite seu endereço:");
 				sAddress = scan.nextLine();
@@ -105,10 +118,7 @@ public class Main {
 				System.out.println("Digite uma senha:");
 				sPassword = scan.nextLine();
 				
-				System.out.println("Digite seu status:");
-				sStatus = scan.nextLine();
-				
-				Patient patient = dbpMenu.SignIn(iCpf, iRg, sName, sEmail, sSusCard, dBornDate, sAddress, sPassword, sStatus);
+				Patient patient = dbpMenu.SignIn(iCpf, iRg, sName, sEmail, sSusCard, sBornDate, sAddress, sPassword);					
 				
 				System.out.println(patient);
 			}
