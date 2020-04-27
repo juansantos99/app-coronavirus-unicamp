@@ -1,6 +1,10 @@
 package main.java.copas;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Date;
+
+import com.sun.jdi.connect.spi.Connection;
 
 public class Patient {
     private int cpf;
@@ -15,7 +19,8 @@ public class Patient {
     private Symptons[] symptons;
 
     public String toString() {
-    	return "Nome: " + this.name + " - Endereço: " + this.address + " - Nascimento: " + this.bornDate + " - Estado: " + this.status;
+        return "Nome: " + this.name + " - Endereço: " + this.address + " - Nascimento: " + this.bornDate + " - Estado: "
+                + this.status;
     }
 
     public Patient(int cpf, int rg, String name, String email, String susCard, String bornDate, String address,
