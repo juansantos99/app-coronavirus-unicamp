@@ -62,7 +62,7 @@ public class DBMedicalRecord {
 		try {
 			PreparedStatement statement = this.connection.prepareStatement("INSERT INTO MEDICAL_RECORD(ID, STATUS, RECORD_DATE, PATIENT_CPF, DOCTOR_ID, DIAGNOSIS, EXAM_ID) VALUES(?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
       
-      statement.setInt(1,  cpf);
+      statement.setInt(1,  generatedId);
 			statement.setString(2, status);
 			statement.setDate(3, date);
       statement.setInt(4, patientCpf);
