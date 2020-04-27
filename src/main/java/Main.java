@@ -29,15 +29,15 @@ public class Main {
 		int iOpt = 0;
 		int iAction = 0;
 
-		System.out.println("VocÃª Ã© um mÃ©dico ou um paciente?\n1- MÃ©dico \n2- Paciente");
+		System.out.println("Você é um médico ou um paciente?\n1- Médico \n2- Paciente");
 		iOpt = scan.nextInt();
 
-		System.out.println("VocÃª deseja: \n1- Fazer login \n2- Cadastrar");
+		System.out.println("Você deseja: \n1- Fazer login \n2- Cadastrar");
 		iAction = scan.nextInt();
 
 		while (iAction < 1 || iAction > 2) {
-			System.out.println("OpÃ§Ã£o invÃ¡lida!");
-			System.out.println("VocÃª deseja: \n1- Fazer login \n2- Cadastrar");
+			System.out.println("Opção inválida!");
+			System.out.println("Você deseja: \n1- Fazer login \n2- Cadastrar");
 			iAction = scan.nextInt();
 		}
 
@@ -83,7 +83,7 @@ public class Main {
 				System.out.println("Digite seu nome:");
 				sName = scan.nextLine();
 
-				System.out.println("Digite sua funÃ§Ã£o:");
+				System.out.println("Digite sua função:");
 				sRole = scan.nextLine();
 
 				HealthProfessional doctor = dbhpMenu.SignUp(iRg, iCpf, sName, sRole);
@@ -135,13 +135,13 @@ public class Main {
 				System.out.println("Digite seu e-mail:");
 				sEmail = scan.nextLine();
 
-				System.out.println("Digite seu cartÃ£o do SUS:");
+				System.out.println("Digite seu cartão do SUS:");
 				sSusCard = scan.nextLine();
 
 				System.out.println("Digite sua data de nascimento:");
 				dBornDate = new SimpleDateFormat("dd/MM/yyyy").parse(scan.nextLine());
 
-				System.out.println("Digite seu endereÃ§o:");
+				System.out.println("Digite seu endereço:");
 				sAddress = scan.nextLine();
 
 				System.out.println("Digite uma senha:");
