@@ -106,8 +106,13 @@ public class HealthProfessional {
         String response;
 
         try {
+<<<<<<< HEAD
             System.out.println("O paciente est� infectado?");
             System.out.println("Digite: Sim ou N�o");
+=======
+            System.out.println("O paciente está infectado?");
+            System.out.println("Digite: Sim ou Não");
+>>>>>>> master
             response = scan.nextLine();
 
             if (response == "Sim") {
