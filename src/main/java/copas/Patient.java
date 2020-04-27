@@ -12,15 +12,18 @@ public class Patient {
     private String name;
     private String email;
     private String susCard;
-    private Date bornDate;
+    private String bornDate;
     private String address;
     private String password;
     private String status;
+    private Symptons[] symptons;
 
-    public Patient() {
+    public String toString() {
+        return "Nome: " + this.name + " - Endereço: " + this.address + " - Nascimento: " + this.bornDate + " - Estado: "
+                + this.status;
     }
 
-    public Patient(int cpf, int rg, String name, String email, String susCard, Date bornDate, String address,
+    public Patient(int cpf, int rg, String name, String email, String susCard, String bornDate, String address,
             String password, String status) {
         this.setCpf(cpf);
         this.setRg(rg);
@@ -72,11 +75,11 @@ public class Patient {
         this.susCard = susCard;
     }
 
-    public Date getBornDate() {
+    public String getBornDate() {
         return this.bornDate;
     }
 
-    public void setBornDate(Date bornDate) {
+    public void setBornDate(String bornDate) {
         this.bornDate = bornDate;
     }
 
@@ -103,36 +106,57 @@ public class Patient {
     public void setStatus(String status) {
         this.status = status;
     }
-    public void updateSymptoms(int cpf, int idSintoma){
 
-    	Connection bd = null;
-		PreparedStatement preparado = null;
-		try{
-			bd = bd.abrirBDConn();
-			preparado = bd.prepareStatment("INSERT into pacientes_sintomas values (?,?)");
-			preparado.setString(1, cpf);
-			preparado.setString(2, idSintoma);
-			preparado.executeUpdate();
-		}catch(Exception e){
-			System.out.println(e.getMessage());
-		}
-	}
-
-    public void registerData() {
+    public Symptons[] getSymptons() {
+        return this.symptons;
     }
 
-    public void consultNotifications() {
+    public void setSymptons(Symptons[] symptons) {
+        this.symptons = symptons;
+    }
+
+    public void updateSymptons() {
+        // Atualizar ou remover um sintoma
+    }
+
+    public void registerData() {
+        // Cadastrar paciente
+    }
+
+    public Notification[] consultNotifications() {
+        Notification[] notifications = {};
+
+        Notification notification = new Notification();
+        notification.setNotification("notification");
+        notification.setMessage("message");
+        notification.setScheduling(new Date(new Date().getTime() + 1000 * 60 * 60 * 24)); // Add 1 day
+        notification.setRecipientName("recipientName");
+        notification.setSchedulingStatus("send");
+        notification.setMailerName("mailerName");
+        notification.setSendDate(new Date());
+
+        notifications[notifications.length] = notification;
+
+        return notifications;
     }
 
     public void listSymptons() {
+        // Listar sintomas
     }
 
-    public void showStatus() {
-    }
+    public String showStatus() {
+        if (this.getStatus() != null) {
+            return this.getStatus();
+        }
 
-    public void consultMessages() {
+        if (this.getSymptons().length >= 3) {
+            return "suspect";
+        }
+
+        return "discarded";
     }
 
     public void consultSchedule() {
+        // Ver uma notificação de agenda
     }
 }
