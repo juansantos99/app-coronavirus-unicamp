@@ -19,13 +19,9 @@ public class DBSymptonsPatient {
 	Connection connection = null;
 	private int id = 0;
 	
-	public DBSymptonsPatient() {
-			try {
-				this.connection = DriverManager.getConnection("jdbc:sqlite:corona.db");
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+	public DBSymptonsPatient(Connection dbConnection) {
+		this.connection = dbConnection;
+	}
 
 	public SymptonsPatient RegisterSymptons (int idSintoma, int cpf) {
 			int generatedId = 0;		

@@ -21,12 +21,8 @@ import main.java.copas.SymptonsPatient;
 public class DBSymptons {
 
 	Connection connection = null;
-	public DBSymptons() {
-		try {
-			this.connection = DriverManager.getConnection("jdbc:sqlite:corona.db");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	public DBSymptons(Connection dbConnection) {
+		this.connection = dbConnection;
 	}
 		
 	public Symptons ShowSymptons(int cpf) throws SQLException {

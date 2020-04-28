@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class DBConnection {
 
-    private static void connect() {
+    private static Connection connect() {
         try (Connection connection = DriverManager.getConnection("jdbc:sqlite:corona.db")) {
 
             System.out.println("Conexão realizada.");
@@ -26,13 +26,17 @@ public class DBConnection {
             statement.execute("INSERT INTO SYMPTONS (ID,NAME) VALUES ('4','Faltade_ar')");
             statement.execute("INSERT INTO SYMPTONS (ID,NAME) VALUES ('5','Cansaço')");
             
+            return connection;
+            
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        
+        return null;
     }
 
-    public static void main() {
-        connect();
+    public static Connection main() {
+        return connect();
     }
 	
 }

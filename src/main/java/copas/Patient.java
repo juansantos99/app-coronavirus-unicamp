@@ -4,8 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Date;
 
-import com.sun.jdi.connect.spi.Connection;
-
 public class Patient {
     private int cpf;
     private int rg;

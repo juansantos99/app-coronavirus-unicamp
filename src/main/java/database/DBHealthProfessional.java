@@ -17,12 +17,8 @@ public class DBHealthProfessional {
 	private int id = 0;
 	
 	
-	public DBHealthProfessional() {
-		try {
-			this.connection = DriverManager.getConnection("jdbc:sqlite:corona.db");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	public DBHealthProfessional(Connection dbConnection) {
+		this.connection = dbConnection;
 	}
 	public int nextId() {
 		this.id = this.id + 1;

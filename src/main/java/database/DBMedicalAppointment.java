@@ -18,12 +18,8 @@ public class DBMedicalAppointment {
 	
 	Connection connection = null;
 	
-	public DBMedicalAppointment() {
-		try {
-			this.connection = DriverManager.getConnection("jdbc:sqlite:corona.db");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	public DBMedicalAppointment(Connection dbConnection) {
+		this.connection = dbConnection;
 	}
 	
 	public void createAppointment(int cpf, int idHealthProfissional, java.util.Date dateAppointment){
@@ -89,7 +85,7 @@ public class DBMedicalAppointment {
 		
 	}
 	*/
-	/*Como fazer verificação ?*/
+	/*Como fazer verificaï¿½ï¿½o ?*/
 	/*
 	public void UpdateAppointment(int cpf, int idHealthProfissional, java.util.Date dateAppointment) {
 		  

@@ -7,12 +7,8 @@ import main.java.copas.Patient;
 public class DBPatient {
 	
 	Connection connection = null;
-	public DBPatient() {
-		try {
-			this.connection = DriverManager.getConnection("jdbc:sqlite:corona.db");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	public DBPatient(Connection dbConnection) {
+		this.connection = dbConnection;
 	}
 
 	public Patient SignUp(int cpf, String password) throws SQLException {

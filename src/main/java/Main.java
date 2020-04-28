@@ -2,6 +2,7 @@ package main.java;
 
 import java.util.Date;
 import java.util.Scanner;
+import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -10,15 +11,17 @@ import main.java.copas.*;
 import main.java.database.*;
 
 public class Main {
-
+	
 	public static void main(String[] args) {
+		Connection dbConnection = null;
 		Scanner scan = new Scanner(System.in);
 
-		DBConnection.main();
-		DBSymptons dbsymptons = new DBSymptons();
-		DBPatient dbpMenu = new DBPatient();
-		DBHealthProfessional dbhpMenu = new DBHealthProfessional();
-		DBSymptonsPatient dbDBsymptonspatient = new DBSymptonsPatient();
+		dbConnection = DBConnection.main();
+		
+		DBSymptons dbsymptons = new DBSymptons(dbConnection);
+		DBPatient dbpMenu = new DBPatient(dbConnection);
+		DBHealthProfessional dbhpMenu = new DBHealthProfessional(dbConnection);
+		DBSymptonsPatient dbDBsymptonspatient = new DBSymptonsPatient(dbConnection);
 
 		HealthProfessional doc = null;
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -57,19 +60,23 @@ public class Main {
 		while(iOpt != 3)
 		{
 			switch (iOpt) {
-			/*Quando o usuário for médico*/
+			/*Quando o usuï¿½rio for mï¿½dico*/
 			
 				case 1:
 					
-					/*Médico realiza login*/
+					/*Mï¿½dico realiza login*/
 					if (iAction == 1) {
 						System.out.println("Digite seu ID:");
 						iId = scan.nextInt();
 						scan.nextLine();
 	
-						HealthProfessional doctor = dbhpMenu.SignUp(iId);
-	
-						System.out.println(doctor);
+						try {
+							HealthProfessional doctor = dbhpMenu.SignUp(iId);
+							
+							System.out.println(doctor);
+						} catch (Exception e) {
+							// TODO: handle exception
+						}
 						System.out.println("Digite aa opÃ§Ã£o desejada: ");
 						// System.out.println("1 - Agendar visita");
 						// System.out.println("2 - Sair");
@@ -88,8 +95,12 @@ public class Main {
 								case 1:
 									scan.nextLine();
 									System.out.println("Digite a data (dia/mes/ano): ");
-									String date = scan.nextLine();
-									Date nDate = format.parse(date);
+									try {
+										String date = scan.nextLine();
+										Date nDate = format.parse(date);
+									} catch (Exception e) {
+										// TODO: handle exception
+									}
 									System.out.println("O nome do paciente: ");
 									String nomePaciente = scan.nextLine();
 							//		Appointment appointment = new Appointment(nomePaciente, nDate, doctor);
@@ -112,7 +123,7 @@ public class Main {
 									int cpfpaci = scan.nextInt();
 									dbsymptons.ShowSymptons(cpfpaci);*/
 								case 7:
-									System.out.println("Você saiu do programa");
+									System.out.println("Vocï¿½ saiu do programa");
 									iOpt = 3;
 									break;
 									
@@ -134,9 +145,13 @@ public class Main {
 						System.out.println("Digite sua funÃ§Ã£o:");
 						sRole = scan.nextLine();
 	
-						HealthProfessional doctor = dbhpMenu.SignIn(iCpf, iRg, sName, sRole);
-	
-						System.out.println(doctor);
+						try {
+							HealthProfessional doctor = dbhpMenu.SignIn(iCpf, iRg, sName, sRole);
+							
+							System.out.println(doctor);
+						} catch (Exception e) {
+							// TODO: handle exception
+						}
 					}
 					iOpt = 4;
 					iAction = 3;
@@ -144,7 +159,7 @@ public class Main {
 						
 					break;
 					
-				/*Quando o usuário for Paciente*/	
+				/*Quando o usuï¿½rio for Paciente*/	
 				case 2:
 					
 					/*Login do Paciente*/
@@ -155,9 +170,13 @@ public class Main {
 						System.out.println("Digite sua senha:");
 						sPassword = scan.nextLine();
 	
-						Patient patient = dbpMenu.SignUp(iCpf, sPassword);
-	
-						System.out.println(patient);
+						try {
+							Patient patient = dbpMenu.SignUp(iCpf, sPassword);
+							
+							System.out.println(patient);
+						} catch (Exception e) {
+							// TODO: handle exception
+						}
 						System.out.println("Digite aa opÃ§Ã£o desejada: ");
 	
 						int opcao = 0;
@@ -177,14 +196,19 @@ public class Main {
 									Symptons sin = new Symptons();
 				
 									int i = 1;
-									for (i = 1; i<6; i++) {
-									sin = dbsymptons.ListSymptons(i);
-									System.out.println(sin);
+									try {
+										for (i = 1; i<6; i++) {
+											System.out.println("entrou");
+											sin = dbsymptons.ListSymptons(i);
+											System.out.println(sin);
+											}
+									} catch (Exception e) {
+										// TODO: handle exception
 									}
 									System.out.println("Quantos destes sintomas voce esta sentindo?");
 									int sint = scan.nextInt();
 									
-									System.out.println("Digite os Sintomas que possuí pelo id");
+									System.out.println("Digite os Sintomas que possuï¿½ pelo id");
 									for(i=0;i<sint;i++) {
 										int idSintoma = scan.nextInt();
 										SymptonsPatient simyptonspatient = dbDBsymptonspatient.RegisterSymptons(idSintoma, iCpf); 
@@ -192,7 +216,7 @@ public class Main {
 									//System.out.println(simyptonspatient);
 									break;
 								case 7:
-									System.out.println("Você saiu do programa");
+									System.out.println("Vocï¿½ saiu do programa");
 									iOpt = 3;
 									break;
 							}
@@ -202,10 +226,14 @@ public class Main {
 						iCpf = scan.nextInt();
 						scan.nextLine();
 	
-						while (dbpMenu.UserExists(iCpf)) {
-							System.out.println("UsuÃ¡rio jÃ¡ existe, digite novamente o CPF.");
-							iCpf = scan.nextInt();
-							scan.nextLine();
+						try {
+							while (dbpMenu.UserExists(iCpf)) {
+								System.out.println("UsuÃ¡rio jÃ¡ existe, digite novamente o CPF.");
+								iCpf = scan.nextInt();
+								scan.nextLine();
+							}
+						} catch (Exception e) {
+							// TODO: handle exception
 						}
 	
 						System.out.println("Digite seu RG:");
@@ -221,8 +249,12 @@ public class Main {
 						sSusCard = scan.nextLine();
 	
 						System.out.println("Digite sua data de nascimento:");
-						String date = scan.nextLine();
-						sBornDate = format.parse(date).toString();
+						try {
+							String date = scan.nextLine();
+							sBornDate = format.parse(date).toString();
+						} catch (Exception e) {
+							// TODO: handle exception
+						}
 	
 						System.out.println("Digite seu endereÃ§o:");
 						sAddress = scan.nextLine();
@@ -230,9 +262,13 @@ public class Main {
 						System.out.println("Digite uma senha:");
 						sPassword = scan.nextLine();
 	
-						Patient patient = dbpMenu.SignIn(iCpf, iRg, sName, sEmail, sSusCard, sBornDate, sAddress,sPassword);
-	
-						System.out.println(patient);
+						try {
+							Patient patient = dbpMenu.SignIn(iCpf, iRg, sName, sEmail, sSusCard, sBornDate, sAddress,sPassword);
+							
+							System.out.println(patient);
+						} catch (Exception e) {
+							// TODO: handle exception
+						}
 					}
 					iOpt = 4;
 					iAction = 3;
