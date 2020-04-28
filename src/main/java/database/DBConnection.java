@@ -20,11 +20,12 @@ public class DBConnection {
             statement.execute("CREATE TABLE IF NOT EXISTS EXAMS( ID INTEGER PRIMARY KEY AUTOINCREMENT, PATIENT_CPF INTEGER, EXAM_DATE TEXT, STATUS VARCHAR, RESULT VARCHAR )");
             statement.execute("CREATE TABLE IF NOT EXISTS MEDICAL_RECORD( ID INTEGER PRIMARY KEY AUTOINCREMENT, STATUS VARHCAR, RECORD_DATE TEXT, PATIENT_CPF INTEGER, DOCTOR_ID INTEGER, DIAGNOSIS VARCHAR, EXAM_ID INTEGER )");
             
-            statement.execute("INSERT INTO SYMPTONS (NAME) VALUES ("Tosse Seca")");
-            statement.execute("INSERT INTO SYMPTONS (NAME) VALUES ("Febre")");
-            statement.execute("INSERT INTO SYMPTONS (NAME) VALUES ("Coriça")");
-            statement.execute("INSERT INTO SYMPTONS (NAME) VALUES ("Falta de ar")");
-            statement.execute("INSERT INTO SYMPTONS (NAME) VALUES ("Cansaço")");
+            statement.execute("INSERT INTO SYMPTONS (NAME) VALUES ('TosseSeca')");
+            statement.execute("INSERT INTO SYMPTONS (NAME) VALUES ('Febre')");
+            statement.execute("INSERT INTO SYMPTONS (NAME) VALUES ('Coriça')");
+            statement.execute("INSERT INTO SYMPTONS (NAME) VALUES ('Faltade_ar')");
+            statement.execute("INSERT INTO SYMPTONS (NAME) VALUES ('Cansaço')");
+            
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

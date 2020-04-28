@@ -85,5 +85,28 @@ public class DBPatient {
 		
 		return exists;
 	}
+	public void showAllPatient() {
+		PreparedStatement select;
+		try {
+			select = this.connection.prepareStatement("select * from PATIENTS");
+			ResultSet resultSet = select.executeQuery();			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+   public void ShowPacientSymptons(int idSymptons) {
+    	PreparedStatement select = null;
+		ResultSet res = null;
+    	try {
+			select = this.connection.prepareStatement("select CPF,NAME from PATIENT_SYMPTONS inner join PATIENT on (ID = ID) where ID = ? ");
+			select.setInt(1, idSymptons);
+			res = select.executeQuery();			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
 }
 

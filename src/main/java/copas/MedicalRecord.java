@@ -6,23 +6,35 @@ public class MedicalRecord {
     private Date date;
     private String status;
     private int patientCpf;
-    private String team;
+    private int doctor_id;
     private String diagnosis;
-    private String exam;
+    private int exam_id;
 
-    public MedicalRecord() {
-    }
+    
 
-    public MedicalRecord(Date date, String status, int patientCpf, String team, String diagnosis, String exam) {
-        this.setDate(date);
+    public MedicalRecord(Date date, String status, int patientCpf,int doctor_id, String diagnosis,int exam_id) {
+    	super();
+    	this.setDate(date);
         this.setStatus(status);
         this.setPatientCpf(patientCpf);
-        this.setTeam(team);
+        this.setDoctor_id(doctor_id);
         this.setDiagnosis(diagnosis);
-        this.setExam(exam);
+        this.setExam_id(exam_id);
     }
+    
 
-    public Date getDate() {
+    
+    public int getDoctor_id() {
+		return doctor_id;
+	}
+
+
+	public void setDoctor_id(int doctor_id) {
+		this.doctor_id = doctor_id;
+	}
+
+
+	public Date getDate() {
         return this.date;
     }
 
@@ -46,13 +58,6 @@ public class MedicalRecord {
         this.patientCpf = patientCpf;
     }
 
-    public String getTeam() {
-        return this.team;
-    }
-
-    public void setTeam(String team) {
-        this.team = team;
-    }
 
     public String getDiagnosis() {
         return this.diagnosis;
@@ -61,12 +66,16 @@ public class MedicalRecord {
     public void setDiagnosis(String diagnosis) {
         this.diagnosis = diagnosis;
     }
+    
+	public int getExam_id() {
+		return exam_id;
+	}
 
-    public String getExam() {
-        return this.exam;
-    }
 
-    public void setExam(String exam) {
-        this.exam = exam;
-    }
+
+	public void setExam_id(int exam_id) {
+		this.exam_id = exam_id;
+	}
+
+   
 }
