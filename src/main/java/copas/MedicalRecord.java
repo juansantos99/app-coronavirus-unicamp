@@ -24,9 +24,17 @@ public class MedicalRecord {
     public int getDoctor_id() {
 		  return doctor_id;
 	  }
-
+  
 	  public void setDoctor_id(int doctor_id) {
 		this.doctor_id = doctor_id;
+
+    public MedicalRecord(Date date, String status, int patientCpf, int doctor_id, String diagnosis, int exam_id) {
+        this.setDate(date);
+        this.setStatus(status);
+        this.setPatientCpf(patientCpf);
+        this.setTeam(team);
+        this.setDiagnosis(diagnosis);
+        this.setExam(exam);
     }
   
 	  public Date getDate() {

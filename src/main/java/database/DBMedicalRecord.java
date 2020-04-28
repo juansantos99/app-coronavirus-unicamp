@@ -90,4 +90,25 @@ public class DBMedicalRecord {
 		
 		return document;
   }
+
+  public Boolean UserExists(int medicalRecord_id) {
+		Boolean exists = false;
+		
+    PreparedStatement select;
+    
+		try {
+			select = this.connection.prepareStatement("select * from MEDICAL_RECORD where ID = ?");
+			
+			select.setInt(1, medicalRecord_id);
+			ResultSet resultSet = select.executeQuery();			
+
+			if (resultSet.next()) {
+				exists = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return exists;
+	}
 }
