@@ -7,7 +7,6 @@ import main.java.copas.Patient;
 public class DBPatient {
 	
 	Connection connection = null;
-	
 	public DBPatient() {
 		try {
 			this.connection = DriverManager.getConnection("jdbc:sqlite:corona.db");
@@ -16,9 +15,9 @@ public class DBPatient {
 		}
 	}
 
-	public Patient SignUp(int cpf, String password) {
-		Patient patient = null
-				;
+	public Patient SignUp(int cpf, String password) throws SQLException {
+
+		Patient patient = null;
 		PreparedStatement select = null;
 		ResultSet res = null;
 		
@@ -31,7 +30,7 @@ public class DBPatient {
 			res = select.executeQuery();
 			
 			patient = new Patient(cpf, res.getInt("RG"), res.getString("NAME"), res.getString("EMAIL"), res.getString("SUSCARD"), res.getString("BORNDATE"), res.getString("ADDRESS"), password, res.getString("STATUS"));
-			
+	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -39,8 +38,8 @@ public class DBPatient {
 		return patient;
 	}
 	
-	public Patient SignIn(int cpf, int rg, String name, String email, String susCard, String bornDate, String address, String password) {		
-		
+	public Patient SignIn(int cpf, int rg, String name, String email, String susCard, String bornDate, String address, String password) throws SQLException {		
+
 		Patient patient = new Patient(cpf, rg, name, email, susCard, bornDate, address, password, "Sem consulta");
 		
 		try {
@@ -65,7 +64,8 @@ public class DBPatient {
 		return patient;
 	}
 	
-	public Boolean UserExists(int cpf) {
+	public Boolean UserExists(int cpf) throws SQLException {
+
 		
 		Boolean exists = false;
 		
@@ -79,13 +79,14 @@ public class DBPatient {
 			if (resultSet.next()) {
 				exists = true;
 			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		return exists;
 	}
-	public void showAllPatient() {
+	/*public void showAllPatient() {
 		PreparedStatement select;
 		try {
 			select = this.connection.prepareStatement("select * from PATIENTS");
@@ -94,8 +95,8 @@ public class DBPatient {
 			e.printStackTrace();
 		}
 		
-	}
-   public void ShowPacientSymptons(int idSymptons) {
+	}*/
+   /*public void ShowPacientSymptons(int idSymptons) {
     	PreparedStatement select = null;
 		ResultSet res = null;
     	try {
@@ -107,6 +108,6 @@ public class DBPatient {
 			e.printStackTrace();
 		}
 		
-	}
+	}*/
 }
 

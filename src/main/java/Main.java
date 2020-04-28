@@ -11,13 +11,14 @@ import main.java.database.*;
 
 public class Main {
 
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 
 		DBConnection.main();
-
+		DBSymptons dbsymptons = new DBSymptons();
 		DBPatient dbpMenu = new DBPatient();
 		DBHealthProfessional dbhpMenu = new DBHealthProfessional();
+		DBSymptonsPatient dbDBsymptonspatient = new DBSymptonsPatient();
 
 		HealthProfessional doc = null;
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -45,15 +46,22 @@ public class Main {
 			iAction = scan.nextInt();
 		}
 
-		while (iOpt < 0 || iOpt > 2) {
+		while (iOpt < 1 || iOpt > 3) {
 			System.out.println("OpÃ§Ã£o invÃ¡lida!");
-			System.out.println("VocÃª deseja: \n1- Fazer login \n2- Cadastrar \n 3- Sair do programa ");
+			System.out.println("VocÃª deseja: \n1- Fazer login \n2- Cadastrar");
 			iAction = scan.nextInt();
 		}
+		//while (iOpt != 3) {}
+		
+		
 		while(iOpt != 3)
 		{
 			switch (iOpt) {
+			/*Quando o usuário for médico*/
+			
 				case 1:
+					
+					/*Médico realiza login*/
 					if (iAction == 1) {
 						System.out.println("Digite seu ID:");
 						iId = scan.nextInt();
@@ -70,10 +78,11 @@ public class Main {
 							System.out.println("1 - Agendar visita");
 							System.out.println("2 - Visualizar todos os Pacientes");
 							System.out.println("3 - Visualizar os Pacientes por sintomas");
-							System.out.println("4 - Atualizar Status de Pacientes");
+							System.out.println("4 - Visualizar sintomas");
 							System.out.println("5 - Viasualizar Agenda");
 							System.out.println("6 - Atualizar Agenda");
 							System.out.println("7 - Sair");
+							//System.out.println("7 - Sair");
 							opcao = scan.nextInt();
 							switch (opcao) {
 								case 1:
@@ -87,15 +96,23 @@ public class Main {
 							//		System.out.println("Sua consulta ficou agendada para o dia: " + format.format(appointment.getDate()));
 									break;
 								case 2:
-									dbpMenu.showAllPatient();
+						
 									break;
 								case 3:
-									System.out.println("Escolha um Sintoma:");
 									
-									int symptons = scan.nextInt();
-									dbpMenu.ShowPacientSymptons(symptons);
+									
+								case 4:
+									
+									//System.out.println(dbsymptons.ListSymptons());
+									
 									break;
+									/*2
+									System.out.println("Digite aa opÃ§Ã£o desejada: ");
+									System.out.println("Insira o cpf do paciente");
+									int cpfpaci = scan.nextInt();
+									dbsymptons.ShowSymptons(cpfpaci);*/
 								case 7:
+									System.out.println("Você saiu do programa");
 									iOpt = 3;
 									break;
 									
@@ -126,7 +143,11 @@ public class Main {
 					
 						
 					break;
+					
+				/*Quando o usuário for Paciente*/	
 				case 2:
+					
+					/*Login do Paciente*/
 					if (iAction == 1) {
 						System.out.println("Digite seu CPF:");
 						iCpf = scan.nextInt();
@@ -141,22 +162,41 @@ public class Main {
 	
 						int opcao = 0;
 						do {
+							System.out.println("1 - Cadastrar Sintomas");
 							System.out.println("1 - Atualizar Sintomas");
-							System.out.println("2 - Sair");
+							System.out.println("1 - Atualizar Sintomas");
+							System.out.println("1 - Atualizar Sintomas");
+							System.out.println("1 - Atualizar Sintomas");
+							System.out.println("1 - Atualizar Sintomas");
+							System.out.println("7 - Sair");
 							opcao = scan.nextInt();
 							switch (opcao) {
+								/*Cadastrar Sintomas*/
 								case 1:
-									scan.nextLine();
-									System.out.println("Escolha o sintoma: ");
-									System.out.println("Escolha o sintoma: ");
-									System.out.println("Escolha o sintoma: ");
-									System.out.println("Escolha o sintoma: ");
-									System.out.println("Escolha o sintoma: ");
-									int codigoSintoma = scan.nextInt();
-									//updateSymptoms(patient.getCpf(), codigoSintoma);
+									
+									Symptons sin = new Symptons();
+				
+									int i = 1;
+									for (i = 1; i<6; i++) {
+									sin = dbsymptons.ListSymptons(i);
+									System.out.println(sin);
+									}
+									System.out.println("Quantos destes sintomas voce esta sentindo?");
+									int sint = scan.nextInt();
+									
+									System.out.println("Digite os Sintomas que possuí pelo id");
+									for(i=0;i<sint;i++) {
+										int idSintoma = scan.nextInt();
+										SymptonsPatient simyptonspatient = dbDBsymptonspatient.RegisterSymptons(idSintoma, iCpf); 
+									}
+									//System.out.println(simyptonspatient);
+									break;
+								case 7:
+									System.out.println("Você saiu do programa");
+									iOpt = 3;
 									break;
 							}
-						} while (opcao != 2);
+						} while (iOpt != 3);
 					} else {
 						System.out.println("Digite seu CPF:");
 						iCpf = scan.nextInt();
@@ -190,8 +230,7 @@ public class Main {
 						System.out.println("Digite uma senha:");
 						sPassword = scan.nextLine();
 	
-						Patient patient = dbpMenu.SignIn(iCpf, iRg, sName, sEmail, sSusCard, sBornDate, sAddress,
-								sPassword);
+						Patient patient = dbpMenu.SignIn(iCpf, iRg, sName, sEmail, sSusCard, sBornDate, sAddress,sPassword);
 	
 						System.out.println(patient);
 					}

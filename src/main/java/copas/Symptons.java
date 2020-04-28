@@ -4,12 +4,26 @@ public class Symptons {
     private int id;
     private String description;
 
-    public Symptons() {
-    }
-
     public Symptons(int id, String description) {
-        this.setId(id);
-        this.setDescription(description);
+        super();
+    	this.id =id;
+        this.description=description;
+    }
+    public Symptons() {
+       
+    }
+    
+    public String toString() {
+        return "Descrição: " + this.description ;
+    }
+    
+    public Symptons(String description) {
+        super();
+        this.description=description;
+    }
+    public Symptons(int id) {
+        super();
+        this.id=id;
     }
 
     public int getId() {
@@ -25,7 +39,7 @@ public class Symptons {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+       this.description = description;
     }
 
 }
