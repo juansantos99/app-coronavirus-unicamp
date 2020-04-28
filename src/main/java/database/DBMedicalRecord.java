@@ -46,7 +46,7 @@ public class DBMedicalRecord {
 			
 			res = select.executeQuery();
 			
-			document = new MedicalRecord(res.getDate("RECORD_DATE"), res.getString("STATUS"), res.getInt("PATIENT_CPF"), res.getInt("DOCTOR_ID"), res.getString("DIAGNOSIS"), res.getString("EXAM_ID"));
+			document = new MedicalRecord(res.getDate("RECORD_DATE"), res.getString("STATUS"), res.getInt("PATIENT_CPF"), res.getInt("DOCTOR_ID"), res.getString("DIAGNOSIS"), res.getInt("EXAM_ID"));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -60,7 +60,7 @@ public class DBMedicalRecord {
 		int generatedId = 0;
 		
 		try {
-			PreparedStatement statement = this.connection.prepareStatement("INSERT INTO MEDICAL_RECORD(ID, STATUS, RECORD_DATE, PATIENT_CPF, DOCTOR_ID, DIAGNOSIS, EXAM_ID) VALUES(?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement statement = this.connection.prepareStatement("INSERT INTO MEDICAL_RECORD(ID, STATUS, RECORD_DATE, PATIENT_CPF, DOCTOR_ID, DIAGNOSIS, EXAM_ID) VALUES(?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
       
       statement.setInt(1,  generatedId);
 			statement.setString(2, status);
@@ -96,10 +96,10 @@ public class DBMedicalRecord {
   }
   
   public Boolean UserExists(int medicalRecord_id) {
-		
 		Boolean exists = false;
 		
-		PreparedStatement select;
+    PreparedStatement select;
+    
 		try {
 			select = this.connection.prepareStatement("select * from MEDICAL_RECORD where ID = ?");
 			

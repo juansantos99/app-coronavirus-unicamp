@@ -13,7 +13,7 @@ public class MedicalRecord {
     public MedicalRecord() {
     }
 
-    public MedicalRecord(Date date, String status, int patientCpf, String team, String diagnosis, String exam) {
+    public MedicalRecord(Date date, String status, int patientCpf, int doctor_id, String diagnosis, int exam_id) {
         this.setDate(date);
         this.setStatus(status);
         this.setPatientCpf(patientCpf);
