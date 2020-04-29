@@ -1,6 +1,5 @@
 package main.java.database;
 
-import java.sql.Date;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -45,19 +44,18 @@ public class DBMedicalRecord {
 		return document;
 	}
 	
-	public MedicalRecord createMedicalRecord(Date date, String status, int patientCpf, int doctor_id, String diagnosis, int exam_id) {		
+	public MedicalRecord createMedicalRecord(String date, String status, int patientCpf, int doctor_id, String diagnosis) {		
 		int generatedId = 0;
 		
 		try {
-			PreparedStatement statement = this.connection.prepareStatement("INSERT INTO MEDICAL_RECORD(ID, STATUS, RECORD_DATE, PATIENT_CPF, DOCTOR_ID, DIAGNOSIS, EXAM_ID) VALUES(?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement statement = this.connection.prepareStatement("INSERT INTO MEDICAL_RECORD(ID, STATUS, RECORD_DATE, PATIENT_CPF, DOCTOR_ID, DIAGNOSIS) VALUES(?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
       
 		  statement.setInt(1, generatedId);
 		  statement.setString(2, status);
-			statement.setDate(3, date);
+			statement.setString(3, date);
 		  statement.setInt(4, patientCpf);
 		  statement.setInt(5, doctor_id);
 		  statement.setString(6, diagnosis);
-		  statement.setInt(7, exam_id);
 			
 	    int affectedRows = statement.executeUpdate();
 
@@ -71,13 +69,13 @@ public class DBMedicalRecord {
         generatedId = (int) generatedKeys.getLong(1);
       }
       else {
-          throw new SQLException("Creating medical report failed, no ID obtained.");
+        throw new SQLException("Creating medical report failed, no ID obtained.");
       }
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
 		
-		MedicalRecord document = new MedicalRecord(date, status, patientCpf, doctor_id, diagnosis, exam_id);
+		MedicalRecord document = new MedicalRecord(date, status, patientCpf, doctor_id, diagnosis);
 		
 		System.out.println("Medical report successfully created! ID: " + generatedId);
 		

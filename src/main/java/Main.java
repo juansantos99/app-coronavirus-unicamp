@@ -21,7 +21,8 @@ public class Main {
 		DBSymptons dbsymptons = new DBSymptons(dbConnection);
 		DBPatient dbpMenu = new DBPatient(dbConnection);
 		DBHealthProfessional dbhpMenu = new DBHealthProfessional(dbConnection);
-		DBSymptonsPatient dbDBsymptonspatient = new DBSymptonsPatient(dbConnection);
+    DBSymptonsPatient dbDBsymptonspatient = new DBSymptonsPatient(dbConnection);
+    DBMedicalRecord dbMedicalRecord = new DBMedicalRecord(dbConnection);
 
 		HealthProfessional doc = null;
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -57,8 +58,7 @@ public class Main {
 		//while (iOpt != 3) {}
 		
 		
-		while(iOpt != 3)
-		{
+		while(iOpt != 3) {
 			switch (iOpt) {
 			/*Quando o usu�rio for m�dico*/
 			
@@ -86,7 +86,7 @@ public class Main {
 							System.out.println("2 - Visualizar todos os Pacientes");
 							System.out.println("3 - Visualizar os Pacientes por sintomas");
 							System.out.println("4 - Visualizar sintomas");
-							System.out.println("5 - Viasualizar Agenda");
+							System.out.println("5 - Criar um novo prontuário");
 							System.out.println("6 - Atualizar Agenda");
 							System.out.println("7 - Sair");
 							//System.out.println("7 - Sair");
@@ -113,15 +113,23 @@ public class Main {
 									
 									
 								case 4:
-									
-									//System.out.println(dbsymptons.ListSymptons());
-									
-									break;
-									/*2
-									System.out.println("Digite aa opção desejada: ");
-									System.out.println("Insira o cpf do paciente");
-									int cpfpaci = scan.nextInt();
-									dbsymptons.ShowSymptons(cpfpaci);*/
+                  scan.nextLine();
+                  
+                  System.out.println("Digite o CPF do paciente: ");
+                  int patient_cpf = scan.nextInt();
+
+                  System.out.println("Digite a data (dia/mês/ano): ");
+                  String medical_record_date = scan.nextLine();
+
+                  System.out.println("Descreva o diagnóstico do paciente: ");
+                  String patient_diagnosis = scan.nextLine();
+
+                  System.out.println("Digite o status do paciente: ");
+                  String patient_status = scan.nextLine();
+
+                  dbMedicalRecord.createMedicalRecord(medical_record_date, patient_status, patient_cpf, iId, patient_diagnosis);
+                  
+                  break;
 								case 7:
 									System.out.println("Voc� saiu do programa");
 									iOpt = 3;
