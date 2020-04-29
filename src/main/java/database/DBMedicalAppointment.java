@@ -6,11 +6,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-
 import main.java.copas.Appointment;
-import main.java.copas.HealthProfessional;
-import main.java.copas.Symptons;
+
 
 public class DBMedicalAppointment {
 
@@ -19,7 +16,7 @@ public class DBMedicalAppointment {
 	public DBMedicalAppointment() {
 	}
 
-	public void createAppointment(int cpf, int idHealthProfissional, java.util.Date dateAppointment)
+	public void createAppointment(long cpf, int idHealthProfissional, String  dateAppointment)
 			throws SQLException {
 
 		Connection connection = null;
@@ -27,48 +24,50 @@ public class DBMedicalAppointment {
 
 		try {
 			connection = DriverManager.getConnection("jdbc:sqlite:corona.db");
-			select = this.connection.prepareStatement(
-					"insert into MEDICAL_APPOINTMENT(DATE,PACIENT_CPF,HEALTHPROFESSIONAL_ID) values(?,?,?)");
-
-			select.setDate(1, (Date) dateAppointment);
-			select.setInt(2, cpf);
+			select = connection.prepareStatement(
+					"insert into MEDICAL_APPOINTMENT(DATE,PATIENT_CPF,HEALTHPROFESSIONAL_ID) values(?,?,?)");
+		
+			select.setString(1,dateAppointment);
+			select.setLong(2,cpf);
 			select.setInt(3, idHealthProfissional);
-
+			
 			select.executeUpdate();
 
 		} catch (SQLException e) {
+			System.out.println("Teste");
 			e.printStackTrace();
+		
 
 		} finally {
+			
 			select.close();
 			connection.close();
 		}
 	}
 
-	public Appointment[] ShowMedicalAppointment(int id) throws SQLException {
+	
+	public void ShowMedicalAppointment(int id) throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement select = null;
 		ResultSet res = null;
 
-		Appointment[] listAppointment = {
 
-		};
 
 		try {
 			connection = DriverManager.getConnection("jdbc:sqlite:corona.db");
 
-			select = this.connection.prepareStatement(
-					"select PATIENT_CPF,HEALTHPROFESSIONAL_ID  from MEDICAL_APPOINTMENT where id = ?");
+			select = connection.prepareStatement(
+					"select PATIENT_CPF,HEALTHPROFESSIONAL_ID,DATE from MEDICAL_APPOINTMENT where HEALTHPROFESSIONAL_ID = ?");
 			select.setInt(1, id);
 			res = select.executeQuery();
-			select.executeUpdate();
 
 			while (res.next()) {
-				Appointment a = new Appointment();
-				a.setCpf(res.getInt(1));
-				a.setIdHealthProfissional(res.getInt(2));
-				listAppointment[listAppointment.length] = a;
+				Appointment appoint = new Appointment();
+				appoint.setPatientCpf((long)res.getInt(1));
+				appoint.setDoctorId(res.getInt(2));
+				appoint.setDate(res.getString(3));
+				System.out.print(appoint);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -77,6 +76,39 @@ public class DBMedicalAppointment {
 			connection.close();
 		}
 
-		return listAppointment;
+	
+	}
+	
+	public void ShowMedicalAppointmentPatient(long cpf) throws SQLException {
+
+		Connection connection = null;
+		PreparedStatement select = null;
+		ResultSet res = null;
+
+
+
+		try {
+			connection = DriverManager.getConnection("jdbc:sqlite:corona.db");
+
+			select = connection.prepareStatement(
+					"select PATIENT_CPF,HEALTHPROFESSIONAL_ID,DATE from MEDICAL_APPOINTMENT where PATIENT_CPF = ?");
+			select.setLong(1, cpf);
+			res = select.executeQuery();
+
+			while (res.next()) {
+				Appointment appoint = new Appointment();
+				appoint.setPatientCpf((long)res.getInt(1));
+				appoint.setDoctorId(res.getInt(2));
+				appoint.setDate(res.getString(3));
+				System.out.print(appoint);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			select.close();
+			connection.close();
+		}
+
+	
 	}
 }

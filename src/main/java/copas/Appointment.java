@@ -1,75 +1,52 @@
 package main.java.copas;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Appointment {
-	private int AppointmentCod;
-	long cpf;
-	int idHealthProfissional;
-	private String patientName;
+	private long patientCpf;
 	private String date;
-	private HealthProfessional prof;
+	private int doctorId;
+	
 
-	public Appointment(String patientName, String date, HealthProfessional prof) {
-		this.patientName = patientName;
+	public Appointment(long patientCpf, String date, int doctorId) {
+		this.patientCpf = patientCpf;
 		this.date = date;
-		this.prof = prof;
+		this.doctorId = doctorId;
 	}
-
-	public Appointment(int appointmentCod, long cpf, int idHealthProfissional, String patientName, String date,
-			HealthProfessional prof) {
-		AppointmentCod = appointmentCod;
-		this.cpf = cpf;
-		this.idHealthProfissional = idHealthProfissional;
-		this.patientName = patientName;
-		this.date = date;
-		this.prof = prof;
-	}
-
 	public Appointment() {
 
 	}
 
-	public long getCpf() {
-		return cpf;
+	public String toString() {
+		Date thisDate = null;
+		try {
+			SimpleDateFormat originalFormat = new SimpleDateFormat("ddMMyyyy");
+			thisDate = originalFormat.parse(this.date.toString());		
+
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+
+		}
+		return "Cpf: " + this.patientCpf + " - Data visita: " + thisDate + " - ID do médico: " + Math.abs(this.doctorId) +"\n";
+	}
+	
+	public long getPatientCpf(){
+		return patientCpf;
 	}
 
-	public void setCpf(long cpf) {
-		this.cpf = cpf;
+	public void setPatientCpf(long patientCpf){
+		this.patientCpf = patientCpf;
 	}
 
-	public int getIdHealthProfissional() {
-		return idHealthProfissional;
+	public int getDoctorId(){
+		return doctorId;
 	}
 
-	public void setIdHealthProfissional(int idHealthProfissional) {
-		this.idHealthProfissional = idHealthProfissional;
-	}
-
-	public String getPatientName() {
-		return patientName;
-	}
-
-	public void setPatientName(String patientName) {
-		this.patientName = patientName;
-	}
-
-	public void setAppointmentCod(int appointmentCod) {
-		AppointmentCod = appointmentCod;
-	}
-
-	public String getpatientName() {
-		return patientName;
-	}
-
-	public void setpatientName(String patientName) {
-		this.patientName = patientName;
-	}
-
-	public int getAppointmentCod() {
-		return AppointmentCod;
-	}
-
-	public void setAgendaCod(int AppointmentCod) {
-		this.AppointmentCod = AppointmentCod;
+	public void setDoctorId(int doctorId){
+		this.doctorId = doctorId;
 	}
 
 	public String getDate() {
@@ -78,13 +55,5 @@ public class Appointment {
 
 	public void setDate(String date) {
 		this.date = date;
-	}
-
-	public HealthProfessional getProf() {
-		return prof;
-	}
-
-	public void setProf(HealthProfessional prof) {
-		this.prof = prof;
 	}
 }
