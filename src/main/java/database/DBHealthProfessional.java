@@ -16,21 +16,18 @@ public class DBHealthProfessional {
 	Connection connection = null;
 	private int id = 0;
 	
-	public DBHealthProfessional() {
-		try {
-			this.connection = DriverManager.getConnection("jdbc:sqlite:corona.db");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	
+	public DBHealthProfessional(Connection dbConnection) {
+		this.connection = dbConnection;
 	}
-
 	public int nextId() {
 		this.id = this.id + 1;
 
 		return this.id;
 	}
 	
-	public HealthProfessional SignUp(int id) {
+	public HealthProfessional SignUp(int id) throws SQLException {
+
 		HealthProfessional doc = null;
 				
 		PreparedStatement select = null;
@@ -44,7 +41,7 @@ public class DBHealthProfessional {
 			res = select.executeQuery();
 			
 			doc = new HealthProfessional(id, res.getInt("CPF"), res.getInt("RG"), res.getString("NAME"), res.getString("ROLE"));
-			
+	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -52,8 +49,8 @@ public class DBHealthProfessional {
 		return doc;
 	}
 	
-	public HealthProfessional SignIn(int cpf, int rg, String name, String role) {		
-		
+	public HealthProfessional SignIn(int cpf, int rg, String name, String role) throws SQLException {		
+
 		int generatedId = 0;
 		
 		try {
@@ -77,6 +74,7 @@ public class DBHealthProfessional {
             else {
                 throw new SQLException("Creating doctor failed, no ID obtained.");
             }
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -88,8 +86,8 @@ public class DBHealthProfessional {
 		return doc;
 	}
 	
-	public Boolean UserExists(int cpf) {
-		
+	public Boolean UserExists(int cpf) throws SQLException {
+
 		Boolean exists = false;
 		
 		PreparedStatement select;
@@ -102,6 +100,7 @@ public class DBHealthProfessional {
 			if (resultSet.next()) {
 				exists = true;
 			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -1,6 +1,7 @@
 package main.java.database;
 
-import main.java.database.DBConnection;
+//import java.sql.Statement;
+import java.sql.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,73 +10,57 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import main.java.copas.Symptons;
-import main.java.copas.Patient;
+import main.java.database.DBConnection;
 
-public class Symptons {
+import main.java.copas.Symptons;
+import main.java.copas.SymptonsPatient;
+
+
+
+
+public class DBSymptons {
 
 	Connection connection = null;
-	
-	public Symptons() {
-		try {
-			this.connection = DriverManager.getConnection("jdbc:sqlite:corona.db");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	public DBSymptons(Connection dbConnection) {
+		this.connection = dbConnection;
 	}
 		
-	public UpdateSymptons (int idSintoma, int cpf) {
-		
-				
-		PreparedStatement select = null;
-		ResultSet res = null;
-		
-		try {
-
-			select = this.connection.prepareStatement("INSERT into PATIENT_SYMPTONS values (?,?)");
-			select.setString(1, cpf);
-			select.setString(2, idSintoma);
-			select.executeUpdate();
-
+	public Symptons ShowSymptons(int cpf) throws SQLException {
 			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-	public ShowSymptons (int cpf) {
-		
-				
 		PreparedStatement select = null;
 		ResultSet res = null;
-		
+		Symptons doc = null;
 		try {
 
 			select = this.connection.prepareStatement("select NAME from SYMPTONS_PACIENT inner join SYMPTONS on (ID = ID) where CPF = ? ");
-			select.setString(1, cpf);
-			res = select.executeQuery();
-			if (resultSet.next()) {
-				res.getint(1);
-			}
+			select.setInt(1, cpf);
+            res = select.executeQuery();
+			
+			doc = new Symptons(res.getString("NAME"));
+		
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-	public ListSymptons () {	
-				
+		return doc;
+	}	
+	public Symptons ListSymptons(int idSintomas) throws SQLException {	
+	
 		PreparedStatement select = null;
 		ResultSet res = null;
-		
+		Symptons doc = null;
 		try {
 
-			select = this.connection.prepareStatement("select ID,NAME from SYMPTONS ");
-			select.setString(1, ID);
-			select.setString(2, NAME);
+			select = this.connection.prepareStatement("select ID,NAME from  SYMPTONS where ID = ?");
+            select.setInt(1,idSintomas);
 			res = select.executeQuery();
-			if (resultSet.next()) {
-				res.getString(1);
-			}
+			
+			doc = new Symptons(idSintomas,res.getString("NAME"));
+		
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+		return doc;
 	}
+}
