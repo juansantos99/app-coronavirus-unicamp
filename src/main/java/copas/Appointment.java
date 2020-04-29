@@ -30,7 +30,7 @@ public class Appointment {
 			// e.printStackTrace();
 
 		}
-		return "Cpf: " + this.patientCpf + " - Data visita: " + thisDate + " - ID do m�dico: " + Math.abs(this.doctorId)
+		return "Cpf: " + this.patientCpf + " - Data visita: " + thisDate + " - ID do médico: " + Math.abs(this.doctorId)
 				+ "\n";
 	}
 

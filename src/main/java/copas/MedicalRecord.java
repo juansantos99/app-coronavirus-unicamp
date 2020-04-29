@@ -25,13 +25,13 @@ public class MedicalRecord {
 		Date thisDate = null;
 		try {
 			SimpleDateFormat originalFormat = new SimpleDateFormat("ddMMyyyy");
-			thisDate = originalFormat.parse(this.date.toString());		
+			thisDate = originalFormat.parse(this.date.toString());
 
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "Date: " + thisDate + " - Status do paciente: " + this.status + " - Diagnóstico: " + this.diagnosis
+		return "Date: " + thisDate + " - Status do paciente: " + this.status + " - Diagnostico: " + this.diagnosis
 				+ " - Cpf: " + this.patientCpf;
 	}
 
