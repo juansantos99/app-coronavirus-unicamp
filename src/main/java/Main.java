@@ -22,7 +22,7 @@ public class Main {
 		DBHealthProfessional dbhpMenu = new DBHealthProfessional();
 		DBSymptonsPatient dbSymptonsPatient = new DBSymptonsPatient();
 		DBMedicalRecord dbMedicalRecord = new DBMedicalRecord();
-
+		DBMedicalAppointment dbappointment = new DBMedicalAppointment();
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
 		int iId = 0;
@@ -43,23 +43,25 @@ public class Main {
 		iOpcaoMenu = scan.nextInt();
 		scan.nextLine();
 
-		if (iOpcaoMenu == 1 || iOpcaoMenu == 2) {
-			System.out.println("Você deseja: \n1 - Fazer login \n2 - Cadastrar");
-			iAction = scan.nextInt();
-			scan.nextLine();
-		}
-
-		while (iOpcaoMenu < 1 || iOpcaoMenu > 3) {
-			System.out.println("Opção inválida!");
-			System.out.println("Você deseja: \n1 - Fazer login \n2 - Cadastrar");
-			iAction = scan.nextInt();
-			scan.nextLine();
-		}
-
+	
 		while (iOpcaoMenu != 3) {
+			
+			if (iOpcaoMenu == 1 || iOpcaoMenu == 2) {
+				System.out.println("Você deseja: \n1 - Fazer login \n2 - Cadastrar");
+				iAction = scan.nextInt();
+				scan.nextLine();
+			}
+
+			while (iOpcaoMenu < 1 || iOpcaoMenu > 3) {
+				System.out.println("Opção inválida!");
+				System.out.println("Você deseja: \n1 - Fazer login \n2 - Cadastrar");
+				iAction = scan.nextInt();
+				scan.nextLine();
+			}
+			
 			switch (iOpcaoMenu) {
 			/* Quando o usuário for médico */
-
+		
 			case 1:
 
 				/* Médico realiza login */
@@ -82,34 +84,30 @@ public class Main {
 					do {
 						System.out.println("1 - Agendar visita");
 						System.out.println("2 - Criar um novo prontuário");
-						System.out.println("3 - Visualizar os Pacientes por sintomas");
-						System.out.println("4 - Visualizar sintomas");
-						System.out.println("5 - Criar um novo prontuário");
-						System.out.println("6 - Atualizar Agenda");
+						System.out.println("3 - Visualizar os Pacientes por cpf");
+						System.out.println("4 - Visualizar pacientes");
+						System.out.println("5 - Visualizar o prontu�rio");
+						System.out.println("6 - Visualizar Agenda");
 						System.out.println("7 - Sair");
 						// System.out.println("7 - Sair");
 						opcao = scan.nextInt();
 						switch (opcao) {
 						case 1:
+							System.out.println("Digite o CPF do paciente: ");
+							long cpf = scan.nextLong();
 							scan.nextLine();
-							System.out.println("Digite a data (dia/mes/ano): ");
-							try {
-								String date = scan.nextLine();
-								Date nDate = format.parse(date);
-							} catch (Exception e) {
-								// TODO: handle exception
-							}
-							System.out.println("O nome do paciente: ");
-							String nomePaciente = scan.nextLine();
-							// Appointment appointment = new Appointment(nomePaciente, nDate, doctor);
-							// System.out.println("Sua consulta ficou agendada para o dia: " +
-							// format.format(appointment.getDate()));
+							System.out.println("Digite a data para visita: ");
+							String visit = scan.nextLine();
+							
+							dbappointment.createAppointment(cpf, iId, visit);
+							
 							break;
 						case 2:
 							scan.nextLine();
 
 							System.out.println("Digite o CPF do paciente: ");
-							int patient_cpf = scan.nextInt();
+							long patient_cpf = scan.nextLong();
+							scan.nextLine();
 
 							System.out.println("Digite a data (dia/mês/ano): ");
 							String medical_record_date = scan.nextLine();
@@ -131,16 +129,32 @@ public class Main {
 
 							break;
 						case 3:
-
+							System.out.println("Digite o CPF do paciente:");
+							iCpf = scan.nextLong();
+							scan.nextLine();
+							Patient patient = dbpMenu.ShowPatient(iCpf);
+							System.out.println(patient);
+							break;
 						case 4:
-
+							dbpMenu.ShowPatientAll();
+							break;
+						case 5: 
+							
+							System.out.println("Digite o CPF do paciente:");
+							iCpf = scan.nextLong();
+							scan.nextLine();
+							MedicalRecord medicalrecord = dbMedicalRecord.showMedicalRecord(iCpf);
+							System.out.println(medicalrecord);
+							break;
+						case 6:
+							dbappointment.ShowMedicalAppointment(iId);
 							break;
 						case 7:
 							System.out.println("Você saiu do programa");
 							iOpcaoMenu = 3;
 							break;
 						}
-					} while (iOpcaoMenu != 3);
+					} while (opcao != 7);
 					break;
 				} else {
 					System.out.println("Digite seu CPF:");
@@ -165,8 +179,6 @@ public class Main {
 						// TODO: handle exception
 					}
 				}
-				iOpcaoMenu = 4;
-				iAction = 3;
 
 				break;
 
@@ -176,7 +188,7 @@ public class Main {
 				/* Login do Paciente */
 				if (iAction == 1) {
 					System.out.println("Digite seu CPF:");
-					iCpf = scan.nextInt();
+					iCpf = scan.nextLong();
 					scan.nextLine();
 					System.out.println("Digite sua senha:");
 					sPassword = scan.nextLine();
@@ -188,16 +200,13 @@ public class Main {
 					} catch (Exception e) {
 						// TODO: handle exception
 					}
-					System.out.println("Digite aa opção desejada: ");
+					System.out.println("Digite a opção desejada: ");
 
 					int opcao = 0;
 					do {
 						System.out.println("1 - Cadastrar Sintomas");
-						System.out.println("1 - Atualizar Sintomas");
-						System.out.println("1 - Atualizar Sintomas");
-						System.out.println("1 - Atualizar Sintomas");
-						System.out.println("1 - Atualizar Sintomas");
-						System.out.println("1 - Atualizar Sintomas");
+						System.out.println("2 - Visualizar Visitas");
+						System.out.println("3 - Visualizar Prontu�rio");
 						System.out.println("7 - Sair");
 						opcao = scan.nextInt();
 						switch (opcao) {
@@ -224,6 +233,13 @@ public class Main {
 								SymptonsPatient simyptonspatient = dbSymptonsPatient.RegisterSymptons(idSintoma, iCpf);
 							}
 							break;
+						case 2:
+							dbappointment.ShowMedicalAppointmentPatient(iCpf);
+							break;
+						case 3:	
+							MedicalRecord medicalrecord = dbMedicalRecord.showMedicalRecord(iCpf);
+							System.out.println(medicalrecord);
+							break;
 						case 7:
 							System.out.println("Voc� saiu do programa");
 							iOpcaoMenu = 3;
@@ -232,13 +248,13 @@ public class Main {
 					} while (iOpcaoMenu != 3);
 				} else {
 					System.out.println("Digite seu CPF:");
-					iCpf = scan.nextInt();
+					iCpf = Math.abs(scan.nextLong());
 					scan.nextLine();
 
 					try {
 						while (dbpMenu.UserExists(iCpf)) {
 							System.out.println("Usuário já existe, digite novamente o CPF.");
-							iCpf = scan.nextInt();
+							iCpf = scan.nextLong();
 							scan.nextLine();
 						}
 					} catch (Exception e) {
@@ -280,9 +296,7 @@ public class Main {
 						// TODO: handle exception
 					}
 				}
-				iOpcaoMenu = 4;
-				iAction = 3;
-
+				
 				break;
 
 			case 3:

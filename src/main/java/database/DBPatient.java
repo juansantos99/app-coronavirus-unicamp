@@ -106,4 +106,65 @@ public class DBPatient {
 
 		return exists;
 	}
+	
+	public Patient ShowPatient(long cpf) throws SQLException {
+
+		Patient patient = null;
+		Connection connection = null;
+		PreparedStatement select = null;
+		ResultSet res = null;
+
+		try {
+			connection = DriverManager.getConnection("jdbc:sqlite:corona.db");
+			select = connection.prepareStatement("select * from PATIENTS where CPF = ?");
+
+			select.setLong(1, cpf);
+		
+
+			res = select.executeQuery();
+
+			while (res.next()) {
+				patient = new Patient(cpf, res.getInt("RG"), res.getString("NAME"), res.getString("EMAIL"),
+						res.getString("SUSCARD"), res.getString("BORNDATE"), res.getString("ADDRESS"), res.getString("PASSWORD"),
+						res.getString("STATUS"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			select.close();
+			connection.close();
+			res.close();
+		}
+
+		return patient;
+	}
+	public void ShowPatientAll() throws SQLException {
+
+		Patient patient = null;
+		Connection connection = null;
+		PreparedStatement select = null;
+		ResultSet res = null;
+
+		try {
+			connection = DriverManager.getConnection("jdbc:sqlite:corona.db");
+			select = connection.prepareStatement("select * from PATIENTS");
+			res = select.executeQuery();
+
+			while (res.next()) {
+				
+				patient = new Patient(res.getInt("CPF"), res.getInt("RG"), res.getString("NAME"), res.getString("EMAIL"),
+						res.getString("SUSCARD"), res.getString("BORNDATE"), res.getString("ADDRESS"), res.getString("PASSWORD"),
+						res.getString("STATUS"));
+				System.out.println(patient);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			select.close();
+			connection.close();
+			res.close();
+		}
+
+
+	}
 }
