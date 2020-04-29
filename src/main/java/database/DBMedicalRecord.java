@@ -1,16 +1,12 @@
 package main.java.database;
 
 import java.sql.Date;
-//import main.java.database.DBConnection;
-
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import main.java.copas.MedicalRecord;
-
 
 public class DBMedicalRecord {
   Connection connection = null;
@@ -50,35 +46,34 @@ public class DBMedicalRecord {
 	}
 	
 	public MedicalRecord createMedicalRecord(Date date, String status, int patientCpf, int doctor_id, String diagnosis, int exam_id) {		
-		
 		int generatedId = 0;
 		
 		try {
 			PreparedStatement statement = this.connection.prepareStatement("INSERT INTO MEDICAL_RECORD(ID, STATUS, RECORD_DATE, PATIENT_CPF, DOCTOR_ID, DIAGNOSIS, EXAM_ID) VALUES(?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
       
-		      statement.setInt    (1, generatedId);
-			  statement.setString (2, status);
-			  statement.setDate   (3, date);
-		      statement.setInt    (4, patientCpf);
-		      statement.setInt    (5, doctor_id);
-		      statement.setString (6, diagnosis);
-		      statement.setInt    (7, exam_id);
+		  statement.setInt(1, generatedId);
+		  statement.setString(2, status);
+			statement.setDate(3, date);
+		  statement.setInt(4, patientCpf);
+		  statement.setInt(5, doctor_id);
+		  statement.setString(6, diagnosis);
+		  statement.setInt(7, exam_id);
 			
-	        int affectedRows = statement.executeUpdate();
+	    int affectedRows = statement.executeUpdate();
 
-	        if (affectedRows == 0) {
-	            throw new SQLException("Creating medical report failed, no rows affected.");
-	        }
+	    if(affectedRows == 0) {
+	      throw new SQLException("Creating medical report failed, no rows affected.");
+	    }
 			
 			ResultSet generatedKeys = statement.getGeneratedKeys();
 			
-            if (generatedKeys.next()) {
-                generatedId = (int) generatedKeys.getLong(1);
-            }
-            else {
-                throw new SQLException("Creating medical report failed, no ID obtained.");
-            }
-		} catch (SQLException e) {
+      if(generatedKeys.next()) {
+        generatedId = (int) generatedKeys.getLong(1);
+      }
+      else {
+          throw new SQLException("Creating medical report failed, no ID obtained.");
+      }
+		} catch(SQLException e) {
 			e.printStackTrace();
 		}
 		
@@ -88,27 +83,4 @@ public class DBMedicalRecord {
 		
 		return document;
   }
-  
-	/*
-  public Boolean UserExists(int medicalRecord_id) {
-		Boolean exists = false;
-		
-    PreparedStatement select;
-    
-		try {
-			select = this.connection.prepareStatement("select * from MEDICAL_RECORD where ID = ?");
-			
-			select.setInt(1, medicalRecord_id);
-			ResultSet resultSet = select.executeQuery();			
-
-			if (resultSet.next()) {
-				exists = true;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return exists;
-	}
-	*/
 }
