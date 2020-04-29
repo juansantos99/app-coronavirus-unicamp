@@ -27,6 +27,7 @@ public class DBPatient {
 			
 			patient = new Patient(cpf, res.getInt("RG"), res.getString("NAME"), res.getString("EMAIL"), res.getString("SUSCARD"), res.getString("BORNDATE"), res.getString("ADDRESS"), password, res.getString("STATUS"));
 	
+			res.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

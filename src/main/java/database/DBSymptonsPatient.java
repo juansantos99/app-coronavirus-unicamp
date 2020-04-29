@@ -22,13 +22,21 @@ public class DBSymptonsPatient {
 	public DBSymptonsPatient(Connection dbConnection) {
 		this.connection = dbConnection;
 	}
+	
+	public Connection getConnection() throws SQLException {
+		if (connection == null) {
+			return DriverManager.getConnection("jdbc:sqlite:corona.db");
+		}
+			
+		return connection;
+	}
 
 	public SymptonsPatient RegisterSymptons (int idSintoma, int cpf) {
 			int generatedId = 0;		
 					
 			try {
 	
-				PreparedStatement select = this.connection.prepareStatement("INSERT into PATIENT_SYMPTONS(SYMPTONS_ID,PATIENT_CPF) values (?,?)",Statement.RETURN_GENERATED_KEYS);
+				PreparedStatement select = this.getConnection().prepareStatement("INSERT into PATIENT_SYMPTONS(SYMPTONS_ID,PATIENT_CPF) values (?,?)",Statement.RETURN_GENERATED_KEYS);
 				select.setInt(1,idSintoma);
 				select.setInt(2,cpf);
 				int affectedRows = select.executeUpdate();
@@ -36,6 +44,8 @@ public class DBSymptonsPatient {
 		        if (affectedRows == 0) {
 		            throw new SQLException("Updating Symptons, no rows affected.");
 		        }
+		        
+		        System.out.println("ate aqui ok");
 				
 				ResultSet generatedKeys = select.getGeneratedKeys();
 				
@@ -45,7 +55,8 @@ public class DBSymptonsPatient {
 	            else {
 	                throw new SQLException("Updating Symptons, no ID obtained.");
 	            }
-	            connection.close();    
+	            
+	            generatedKeys.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

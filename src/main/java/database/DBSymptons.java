@@ -24,6 +24,14 @@ public class DBSymptons {
 	public DBSymptons(Connection dbConnection) {
 		this.connection = dbConnection;
 	}
+	
+	public Connection getConnection() throws SQLException {
+		if (connection == null) {
+			return DriverManager.getConnection("jdbc:sqlite:corona.db");
+		}
+			
+		return connection;
+	}
 		
 	public Symptons ShowSymptons(int cpf) throws SQLException {
 			
@@ -51,13 +59,15 @@ public class DBSymptons {
 		Symptons doc = null;
 		try {
 
-			select = this.connection.prepareStatement("select ID,NAME from  SYMPTONS where ID = ?");
+			select = getConnection().prepareStatement("select ID,NAME from SYMPTONS where ID = ?");
             select.setInt(1,idSintomas);
 			res = select.executeQuery();
 			
-			doc = new Symptons(idSintomas,res.getString("NAME"));
-		
-
+			if (res.next()) {
+				doc = new Symptons(idSintomas,res.getString("NAME"));
+			}
+			
+			res.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

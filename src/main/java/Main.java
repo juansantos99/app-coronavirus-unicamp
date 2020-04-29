@@ -198,12 +198,12 @@ public class Main {
 									int i = 1;
 									try {
 										for (i = 1; i<6; i++) {
-											System.out.println("entrou");
 											sin = dbsymptons.ListSymptons(i);
 											System.out.println(sin);
 											}
 									} catch (Exception e) {
 										// TODO: handle exception
+										System.out.println(e);
 									}
 									System.out.println("Quantos destes sintomas voce esta sentindo?");
 									int sint = scan.nextInt();
