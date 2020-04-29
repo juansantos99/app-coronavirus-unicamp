@@ -21,14 +21,15 @@ public class Main {
 		DBSymptons dbsymptons = new DBSymptons(dbConnection);
 		DBPatient dbpMenu = new DBPatient(dbConnection);
 		DBHealthProfessional dbhpMenu = new DBHealthProfessional(dbConnection);
-		DBSymptonsPatient dbDBsymptonspatient = new DBSymptonsPatient(dbConnection);
+    DBSymptonsPatient dbDBsymptonspatient = new DBSymptonsPatient(dbConnection);
+    DBMedicalRecord dbMedicalRecord = new DBMedicalRecord(dbConnection);
 
 		HealthProfessional doc = null;
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
 		int iId = 0;
 		int iRg = 0;
-		int iCpf = 0;
+		long iCpf = 0;
 		String sName = "";
 		String sRole = "";
 		String sEmail = "";
@@ -40,25 +41,24 @@ public class Main {
 		int iOpt = 0;
 		int iAction = 0;
 
-		System.out.println("Você é um médico ou um paciente?\n1- Médico \n2- Paciente\n3- Sair ");
+		System.out.println("Você é um médico ou um paciente?\n1 - Médico \n2 - Paciente\n3 - Sair ");
 		iOpt = scan.nextInt();
 		
 		if(iOpt == 1 || iOpt == 2)
 		{	
-			System.out.println("Você deseja: \n1- Fazer login \n2- Cadastrar");
+			System.out.println("Você deseja: \n1 - Fazer login \n2 - Cadastrar");
 			iAction = scan.nextInt();
 		}
 
 		while (iOpt < 1 || iOpt > 3) {
 			System.out.println("Opção inválida!");
-			System.out.println("Você deseja: \n1- Fazer login \n2- Cadastrar");
+			System.out.println("Você deseja: \n1 - Fazer login \n2 - Cadastrar");
 			iAction = scan.nextInt();
 		}
 		//while (iOpt != 3) {}
 		
 		
-		while(iOpt != 3)
-		{
+		while(iOpt != 3) {
 			switch (iOpt) {
 			/*Quando o usu�rio for m�dico*/
 			
@@ -83,10 +83,10 @@ public class Main {
 						int opcao = 0;
 						do {
 							System.out.println("1 - Agendar visita");
-							System.out.println("2 - Visualizar todos os Pacientes");
+							System.out.println("2 - Criar um novo prontuário");
 							System.out.println("3 - Visualizar os Pacientes por sintomas");
 							System.out.println("4 - Visualizar sintomas");
-							System.out.println("5 - Viasualizar Agenda");
+							System.out.println("5 - Criar um novo prontuário");
 							System.out.println("6 - Atualizar Agenda");
 							System.out.println("7 - Sair");
 							//System.out.println("7 - Sair");
@@ -107,21 +107,36 @@ public class Main {
 							//		System.out.println("Sua consulta ficou agendada para o dia: " + format.format(appointment.getDate()));
 									break;
 								case 2:
-						
-									break;
+                  scan.nextLine();
+                    
+                  System.out.println("Digite o CPF do paciente: ");
+                  int patient_cpf = scan.nextInt();
+
+                  System.out.println("Digite a data (dia/mês/ano): ");
+                  String medical_record_date = scan.nextLine();
+
+                  System.out.println("Descreva o diagnóstico do paciente: ");
+                  String patient_diagnosis = scan.nextLine();
+
+                  System.out.println("Digite o status do paciente: ");
+                  String patient_status = scan.nextLine();
+
+                  MedicalRecord patient_medical_record = dbMedicalRecord.createMedicalRecord(medical_record_date, patient_status, patient_cpf, iId, patient_diagnosis);
+                  
+                  System.out.println("Prontuário registrado com sucesso!");
+                  System.out.println("CPF do paciente: " + patient_medical_record.getPatientCpf());
+                  System.out.println("Data de criação do prontuário: " + patient_medical_record.getDate());
+                  System.out.println("Descrição do diagnóstico:" + patient_medical_record.getDiagnosis());
+                  System.out.println("Status do paciente: " + patient_medical_record.getStatus());
+
+                  break;
 								case 3:
 									
 									
 								case 4:
-									
-									//System.out.println(dbsymptons.ListSymptons());
-									
-									break;
-									/*2
-									System.out.println("Digite aa opção desejada: ");
-									System.out.println("Insira o cpf do paciente");
-									int cpfpaci = scan.nextInt();
-									dbsymptons.ShowSymptons(cpfpaci);*/
+                  
+
+                  break;
 								case 7:
 									System.out.println("Voc� saiu do programa");
 									iOpt = 3;
@@ -132,7 +147,7 @@ public class Main {
 						break;
 					} else{
 						System.out.println("Digite seu CPF:");
-						iCpf = scan.nextInt();
+						iCpf = scan.nextLong();
 						scan.nextLine();
 	
 						System.out.println("Digite seu RG:");

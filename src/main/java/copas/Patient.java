@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.util.Date;
 
 public class Patient {
-    private int cpf;
+    private long cpf;
     private int rg;
     private String name;
     private String email;
@@ -21,7 +21,7 @@ public class Patient {
                 + this.status;
     }
 
-    public Patient(int cpf, int rg, String name, String email, String susCard, String bornDate, String address,
+    public Patient(long cpf, int rg, String name, String email, String susCard, String bornDate, String address,
             String password, String status) {
         this.setCpf(cpf);
         this.setRg(rg);
@@ -33,11 +33,11 @@ public class Patient {
         this.setPassword(password);
     }
 
-    public int getCpf() {
+    public long getCpf() {
         return this.cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(long cpf) {
         this.cpf = cpf;
     }
 

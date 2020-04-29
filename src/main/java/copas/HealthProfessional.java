@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class HealthProfessional {
     private int id;
-    private int cpf;
+    private long cpf;
     private int rg;
     private String name;
     private String role;
@@ -16,7 +16,7 @@ public class HealthProfessional {
     public HealthProfessional() {
     }
 
-    public HealthProfessional(int id, int cpf, int rg, String name, String role) {
+    public HealthProfessional(int id, long cpf, int rg, String name, String role) {
         this.setId(id);
         this.setCpf(cpf);
         this.setRg(rg);
@@ -40,11 +40,11 @@ public class HealthProfessional {
         this.rg = rg;
     }
 
-    public int getCpf() {
+    public long getCpf() {
         return this.cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(long cpf) {
         this.cpf = cpf;
     }
 
