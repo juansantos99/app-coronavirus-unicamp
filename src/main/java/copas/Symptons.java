@@ -5,7 +5,6 @@ public class Symptons {
     private String description;
 
     public Symptons(int id, String description) {
-        super();
     	this.id =id;
         this.description=description;
     }
@@ -14,7 +13,7 @@ public class Symptons {
     }
     
     public String toString() {
-        return "Descrição: " + this.description ;
+        return "Descriï¿½ï¿½o: " + this.description ;
     }
     
     public Symptons(String description) {

@@ -1,12 +1,8 @@
 package main.java.copas;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.Date;
-
 public class Patient {
     private long cpf;
-    private int rg;
+    private long rg;
     private String name;
     private String email;
     private String susCard;
@@ -21,7 +17,7 @@ public class Patient {
                 + this.status;
     }
 
-    public Patient(long cpf, int rg, String name, String email, String susCard, String bornDate, String address,
+    public Patient(long cpf, long rg, String name, String email, String susCard, String bornDate, String address,
             String password, String status) {
         this.setCpf(cpf);
         this.setRg(rg);
@@ -41,11 +37,11 @@ public class Patient {
         this.cpf = cpf;
     }
 
-    public int getRg() {
+    public long getRg() {
         return this.rg;
     }
 
-    public void setRg(int rg) {
+    public void setRg(long rg) {
         this.rg = rg;
     }
 
@@ -119,23 +115,6 @@ public class Patient {
 
     public void registerData() {
         // Cadastrar paciente
-    }
-
-    public Notification[] consultNotifications() {
-        Notification[] notifications = {};
-
-        Notification notification = new Notification();
-        notification.setNotification("notification");
-        notification.setMessage("message");
-        notification.setScheduling(new Date(new Date().getTime() + 1000 * 60 * 60 * 24)); // Add 1 day
-        notification.setRecipientName("recipientName");
-        notification.setSchedulingStatus("send");
-        notification.setMailerName("mailerName");
-        notification.setSendDate(new Date());
-
-        notifications[notifications.length] = notification;
-
-        return notifications;
     }
 
     public void listSymptons() {

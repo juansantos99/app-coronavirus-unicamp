@@ -60,11 +60,11 @@ public class Main {
 		
 		while(iOpt != 3) {
 			switch (iOpt) {
-			/*Quando o usu�rio for m�dico*/
+			/*Quando o usuário for médico*/
 			
 				case 1:
 					
-					/*M�dico realiza login*/
+					/*Médico realiza login*/
 					if (iAction == 1) {
 						System.out.println("Digite seu ID:");
 						iId = scan.nextInt();
@@ -174,7 +174,7 @@ public class Main {
 						
 					break;
 					
-				/*Quando o usu�rio for Paciente*/	
+				/*Quando o usuário for Paciente*/	
 				case 2:
 					
 					/*Login do Paciente*/
@@ -316,11 +316,4 @@ public class Main {
 		}
 		scan.close();
 	}
-	
-/*
-	private static void showAllPatients() {
-		// TODO Auto-generated method stub
-
-	}
-*/		
 }

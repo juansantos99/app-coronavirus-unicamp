@@ -6,17 +6,17 @@ public class Notification {
     private int id;
     private String notification;
     private String message;
-    private Date scheduling;
+    private String scheduling;
     private String recipientName;
     private String schedulingStatus;
     private String mailerName;
-    private Date sendDate;
+    private String sendDate;
 
     public Notification() {
     }
 
-    public Notification(int id, String notification, String message, Date scheduling, String recipientName,
-            String schedulingStatus, String mailerName, Date sendDate) {
+    public Notification(int id, String notification, String message, String scheduling, String recipientName,
+            String schedulingStatus, String mailerName, String sendDate) {
         this.setId(id);
         this.setNotification(notification);
         this.setMessage(message);
@@ -51,11 +51,11 @@ public class Notification {
         this.message = message;
     }
 
-    public Date getScheduling() {
+    public String getScheduling() {
         return this.scheduling;
     }
 
-    public void setScheduling(Date scheduling) {
+    public void setScheduling(String scheduling) {
         this.scheduling = scheduling;
     }
 
@@ -83,11 +83,11 @@ public class Notification {
         this.mailerName = mailerName;
     }
 
-    public Date getSendDate() {
+    public String getSendDate() {
         return this.sendDate;
     }
 
-    public void setSendDate(Date sendDate) {
+    public void setSendDate(String sendDate) {
         this.sendDate = sendDate;
     }
 
