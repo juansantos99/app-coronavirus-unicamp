@@ -23,7 +23,7 @@ public class DBConnection {
             statement.execute("INSERT INTO SYMPTONS (ID,NAME) VALUES ('1','TosseSeca')");
             statement.execute("INSERT INTO SYMPTONS (ID,NAME) VALUES ('2','Febre')");
             statement.execute("INSERT INTO SYMPTONS (ID,NAME) VALUES ('3','Coriça')");
-            statement.execute("INSERT INTO SYMPTONS (ID,NAME) VALUES ('4','Faltade_ar')");
+            statement.execute("INSERT INTO SYMPTONS (ID,NAME) VALUES ('4','Falta de ar')");
             statement.execute("INSERT INTO SYMPTONS (ID,NAME) VALUES ('5','Cansaço')");
             
             return connection;

@@ -5,14 +5,14 @@ import java.util.Date;
 public class Exam {
     private int id;
     private String patientName;
-    private Date date;
+    private String date;
     private String status;
     private String result;
 
     public Exam() {
     }
 
-    public Exam(int id, String patientName, Date date, String status, String result) {
+    public Exam(int id, String patientName, String date, String status, String result) {
         this.setId(id);
         this.setPatientName(patientName);
         this.setDate(date);
@@ -36,11 +36,11 @@ public class Exam {
         this.patientName = patientName;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return this.date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

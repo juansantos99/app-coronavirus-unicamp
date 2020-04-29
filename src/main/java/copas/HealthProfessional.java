@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class HealthProfessional {
     private int id;
-    private int cpf;
-    private int rg;
+    private long cpf;
+    private long rg;
     private String name;
     private String role;
 
@@ -16,7 +16,7 @@ public class HealthProfessional {
     public HealthProfessional() {
     }
 
-    public HealthProfessional(int id, int cpf, int rg, String name, String role) {
+    public HealthProfessional(int id, long cpf, long rg, String name, String role) {
         this.setId(id);
         this.setCpf(cpf);
         this.setRg(rg);
@@ -32,19 +32,19 @@ public class HealthProfessional {
         this.id = id;
     }
 
-    public int getRg() {
+    public long getRg() {
         return this.rg;
     }
 
-    public void setRg(int rg) {
+    public void setRg(long rg) {
         this.rg = rg;
     }
 
-    public int getCpf() {
+    public long getCpf() {
         return this.cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(long cpf) {
         this.cpf = cpf;
     }
 
@@ -126,9 +126,5 @@ public class HealthProfessional {
         } finally {
             scan.close();
         }
-    }
-
-    public void contactPatient() {
-        // Manda uma notificação para o paciente pelo CPF
     }
 }
