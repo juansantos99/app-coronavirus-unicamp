@@ -1,7 +1,5 @@
 package main.java.copas;
 
-import java.util.Date;
-
 public class Exam {
     private int id;
     private String patientName;

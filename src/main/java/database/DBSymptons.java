@@ -15,14 +15,9 @@ import main.java.database.DBConnection;
 import main.java.copas.Symptons;
 import main.java.copas.SymptonsPatient;
 
-
-
-
 public class DBSymptons {
 
-	Connection connection = null;
-	public DBSymptons(Connection dbConnection) {
-		this.connection = dbConnection;
+	public DBSymptons() {
 	}
 		
 	public Symptons ShowSymptons(int cpf) throws SQLException {
@@ -30,15 +25,19 @@ public class DBSymptons {
 		PreparedStatement select = null;
 		ResultSet res = null;
 		Symptons doc = null;
-		try {
+		
+		try (Connection connection = DriverManager.getConnection("jdbc:sqlite:corona.db")) {
 
-			select = this.connection.prepareStatement("select NAME from SYMPTONS_PACIENT inner join SYMPTONS on (ID = ID) where CPF = ? ");
+			select = connection.prepareStatement("select NAME from SYMPTONS_PACIENT inner join SYMPTONS on (ID = ID) where CPF = ? ");
 			select.setInt(1, cpf);
             res = select.executeQuery();
+            
+            connection.close();
+            select.close();
+            res.close();
 			
 			doc = new Symptons(res.getString("NAME"));
 		
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -49,14 +48,18 @@ public class DBSymptons {
 		PreparedStatement select = null;
 		ResultSet res = null;
 		Symptons doc = null;
-		try {
+		
+		try (Connection connection = DriverManager.getConnection("jdbc:sqlite:corona.db")) {
 
-			select = this.connection.prepareStatement("select ID,NAME from  SYMPTONS where ID = ?");
+			select = connection.prepareStatement("select ID,NAME from  SYMPTONS where ID = ?");
             select.setInt(1,idSintomas);
 			res = select.executeQuery();
 			
 			doc = new Symptons(idSintomas,res.getString("NAME"));
-		
+			
+			connection.close();
+			select.close();
+			res.close();		
 
 		} catch (SQLException e) {
 			e.printStackTrace();

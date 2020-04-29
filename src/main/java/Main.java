@@ -13,16 +13,15 @@ import main.java.database.*;
 public class Main {
 	
 	public static void main(String[] args) {
-		Connection dbConnection = null;
 		Scanner scan = new Scanner(System.in);
 
-		dbConnection = DBConnection.main();
+		new DBConnection();
 		
-		DBSymptons dbsymptons = new DBSymptons(dbConnection);
-		DBPatient dbpMenu = new DBPatient(dbConnection);
-		DBHealthProfessional dbhpMenu = new DBHealthProfessional(dbConnection);
-    DBSymptonsPatient dbDBsymptonspatient = new DBSymptonsPatient(dbConnection);
-    DBMedicalRecord dbMedicalRecord = new DBMedicalRecord(dbConnection);
+		DBSymptons dbsymptons = new DBSymptons();
+		DBPatient dbpMenu = new DBPatient();
+		DBHealthProfessional dbhpMenu = new DBHealthProfessional();
+		DBSymptonsPatient dbDBsymptonspatient = new DBSymptonsPatient();
+		DBMedicalRecord dbMedicalRecord = new DBMedicalRecord();
 
 		HealthProfessional doc = null;
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -38,28 +37,29 @@ public class Main {
 		String sPassword = "";
 		String sBornDate = "";
 
-		int iOpt = 0;
+		int iOpcaoMenu = 0;
 		int iAction = 0;
 
 		System.out.println("Você é um médico ou um paciente?\n1 - Médico \n2 - Paciente\n3 - Sair ");
-		iOpt = scan.nextInt();
+		iOpcaoMenu = scan.nextInt();
+		scan.nextLine();
 		
-		if(iOpt == 1 || iOpt == 2)
+		if(iOpcaoMenu == 1 || iOpcaoMenu == 2)
 		{	
 			System.out.println("Você deseja: \n1 - Fazer login \n2 - Cadastrar");
 			iAction = scan.nextInt();
+			scan.nextLine();
 		}
 
-		while (iOpt < 1 || iOpt > 3) {
+		while (iOpcaoMenu < 1 || iOpcaoMenu > 3) {
 			System.out.println("Opção inválida!");
 			System.out.println("Você deseja: \n1 - Fazer login \n2 - Cadastrar");
 			iAction = scan.nextInt();
+			scan.nextLine();
 		}
-		//while (iOpt != 3) {}
 		
-		
-		while(iOpt != 3) {
-			switch (iOpt) {
+		while(iOpcaoMenu != 3) {
+			switch (iOpcaoMenu) {
 			/*Quando o usuário for médico*/
 			
 				case 1:
@@ -139,11 +139,11 @@ public class Main {
                   break;
 								case 7:
 									System.out.println("Voc� saiu do programa");
-									iOpt = 3;
+									iOpcaoMenu = 3;
 									break;
 									
 							}
-						} while (iOpt !=  3);
+						} while (iOpcaoMenu !=  3);
 						break;
 					} else{
 						System.out.println("Digite seu CPF:");
@@ -168,7 +168,7 @@ public class Main {
 							// TODO: handle exception
 						}
 					}
-					iOpt = 4;
+					iOpcaoMenu = 4;
 					iAction = 3;
 					
 						
@@ -232,10 +232,10 @@ public class Main {
 									break;
 								case 7:
 									System.out.println("Voc� saiu do programa");
-									iOpt = 3;
+									iOpcaoMenu = 3;
 									break;
 							}
-						} while (iOpt != 3);
+						} while (iOpcaoMenu != 3);
 					} else {
 						System.out.println("Digite seu CPF:");
 						iCpf = scan.nextInt();
@@ -285,7 +285,7 @@ public class Main {
 							// TODO: handle exception
 						}
 					}
-					iOpt = 4;
+					iOpcaoMenu = 4;
 					iAction = 3;
 					
 					break;
@@ -298,14 +298,14 @@ public class Main {
 				case 4:
 					
 					System.out.println("Você é um médico ou um paciente?\n1- Médico \n2- Paciente\n3- Sair ");
-					iOpt = scan.nextInt();
+					iOpcaoMenu = scan.nextInt();
 					
-					if(iOpt == 1 || iOpt == 2)
+					if(iOpcaoMenu == 1 || iOpcaoMenu == 2)
 					{	
 						System.out.println("Você deseja: \n1- Fazer login \n2- Cadastrar");
 						iAction = scan.nextInt();
 					}
-					while (iOpt < 0 || iOpt > 2) {
+					while (iOpcaoMenu < 0 || iOpcaoMenu > 2) {
 						System.out.println("Opção inválida!");
 						System.out.println("Você deseja: \n1- Fazer login \n2- Cadastrar \n 3- Sair do programa ");
 						iAction = scan.nextInt();
