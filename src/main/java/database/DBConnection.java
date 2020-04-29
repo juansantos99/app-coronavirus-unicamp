@@ -4,38 +4,54 @@ import java.sql.*;
 
 public class DBConnection {
 
-    private void connect() {
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:corona.db")) {
+	private void connect() throws SQLException {
+		Connection connection = null;
+		Statement statement = null;
 
-            System.out.println("Conexão realizada.");
+		try {
+			connection = DriverManager.getConnection("jdbc:sqlite:corona.db");
 
-            Statement statement = connection.createStatement();
-            
-            statement.execute("CREATE TABLE IF NOT EXISTS PATIENTS( CPF INTEGER PRIMARY KEY, RG INTEGER, NAME VARCHAR, EMAIL VARCHAR, SUSCARD VARCHAR, BORNDATE TEXT, ADDRESS VARCHAR, PASSWORD VARCHAR, STATUS VARCHAR DEFAULT 'SEM CONSULTA')");
-            statement.execute("CREATE TABLE IF NOT EXISTS HEALTHPROFESSIONAL( ID INTEGER PRIMARY KEY AUTOINCREMENT, RG INTEGER, CPF INTEGER, NAME VARCHAR, ROLE VARCHAR )");
-            statement.execute("CREATE TABLE IF NOT EXISTS SYMPTONS( ID INTEGER PRIMARY KEY , NAME VARCHAR )");
-            statement.execute("CREATE TABLE IF NOT EXISTS PATIENT_SYMPTONS( ID INTEGER PRIMARY KEY AUTOINCREMENT,SYMPTONS_ID INTEGER PRIMARY KEY , PATIENT_CPF INTEGER)");
-            statement.execute("CREATE TABLE IF NOT EXISTS MEDICAL_APPOINTMENT( ID INTEGER PRIMARY KEY AUTOINCREMENT, DATE TEXT, PATIENT_CPF INTEGER, HEALTHPROFESSIONAL_ID INTEGER )");
-            statement.execute("CREATE TABLE IF NOT EXISTS NOTIFICATIONS( ID INTEGER PRIMARY KEY AUTOINCREMENT, NOTIFICATION VARCHAR, MESSAGE VARCHAR, SCHEDULED TEXT, MEDICAL_APPOINTMENT_ID INTEGER, READ INTEGER DEFAULT 0 )");
-            statement.execute("CREATE TABLE IF NOT EXISTS EXAMS( ID INTEGER PRIMARY KEY AUTOINCREMENT, PATIENT_CPF INTEGER, EXAM_DATE TEXT, STATUS VARCHAR, RESULT VARCHAR )");
-            statement.execute("CREATE TABLE IF NOT EXISTS MEDICAL_RECORD( ID INTEGER PRIMARY KEY AUTOINCREMENT, STATUS VARCHAR, RECORD_DATE VARCHAR, PATIENT_CPF INTEGER, DOCTOR_ID INTEGER, DIAGNOSIS VARCHAR, EXAM_ID INTEGER )");
-            
-            statement.execute("INSERT INTO SYMPTONS (ID,NAME) VALUES ('1','TosseSeca')");
-            statement.execute("INSERT INTO SYMPTONS (ID,NAME) VALUES ('2','Febre')");
-            statement.execute("INSERT INTO SYMPTONS (ID,NAME) VALUES ('3','Coriça')");
-            statement.execute("INSERT INTO SYMPTONS (ID,NAME) VALUES ('4','Falta de ar')");
-            statement.execute("INSERT INTO SYMPTONS (ID,NAME) VALUES ('5','Cansaço')");
-            
-            statement.close();
-            connection.close();
-            
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
+			System.out.println("Conexão realizada.");
 
-    public DBConnection() {
-        this.connect();
-    }
-	
+			statement = connection.createStatement();
+
+			statement.execute(
+					"CREATE TABLE IF NOT EXISTS PATIENTS( CPF INTEGER PRIMARY KEY, RG INTEGER, NAME VARCHAR, EMAIL VARCHAR, SUSCARD VARCHAR, BORNDATE TEXT, ADDRESS VARCHAR, PASSWORD VARCHAR, STATUS VARCHAR DEFAULT 'SEM CONSULTA')");
+			statement.execute(
+					"CREATE TABLE IF NOT EXISTS HEALTHPROFESSIONAL( ID INTEGER PRIMARY KEY AUTOINCREMENT, RG INTEGER, CPF INTEGER, NAME VARCHAR, ROLE VARCHAR )");
+			statement.execute("CREATE TABLE IF NOT EXISTS SYMPTONS( ID INTEGER PRIMARY KEY , NAME VARCHAR )");
+			statement.execute(
+					"CREATE TABLE IF NOT EXISTS PATIENT_SYMPTONS( ID INTEGER PRIMARY KEY AUTOINCREMENT, SYMPTONS_ID INTEGER , PATIENT_CPF INTEGER )");
+			statement.execute(
+					"CREATE TABLE IF NOT EXISTS MEDICAL_APPOINTMENT( ID INTEGER PRIMARY KEY AUTOINCREMENT, DATE TEXT, PATIENT_CPF INTEGER, HEALTHPROFESSIONAL_ID INTEGER )");
+			statement.execute(
+					"CREATE TABLE IF NOT EXISTS NOTIFICATIONS( ID INTEGER PRIMARY KEY AUTOINCREMENT, NOTIFICATION VARCHAR, MESSAGE VARCHAR, SCHEDULED TEXT, MEDICAL_APPOINTMENT_ID INTEGER, READ INTEGER DEFAULT 0 )");
+			statement.execute(
+					"CREATE TABLE IF NOT EXISTS EXAMS( ID INTEGER PRIMARY KEY AUTOINCREMENT, PATIENT_CPF INTEGER, EXAM_DATE TEXT, STATUS VARCHAR, RESULT VARCHAR )");
+			statement.execute(
+					"CREATE TABLE IF NOT EXISTS MEDICAL_RECORD( ID INTEGER PRIMARY KEY AUTOINCREMENT, STATUS VARCHAR, RECORD_DATE VARCHAR, PATIENT_CPF INTEGER, DOCTOR_ID INTEGER, DIAGNOSIS VARCHAR, EXAM_ID INTEGER )");
+
+			statement.execute(
+					"INSERT INTO SYMPTONS (ID, NAME) SELECT 1, 'Tosse Seca' WHERE NOT EXISTS (SELECT 1 FROM SYMPTONS WHERE ID = 1 AND NAME = 'Tosse Seca')");
+			statement.execute(
+					"INSERT INTO SYMPTONS (ID, NAME) SELECT 2, 'Febre' WHERE NOT EXISTS (SELECT 1 FROM SYMPTONS WHERE ID = 2 AND NAME = 'Febre')");
+			statement.execute(
+					"INSERT INTO SYMPTONS (ID, NAME) SELECT 3, 'Coriça' WHERE NOT EXISTS (SELECT 1 FROM SYMPTONS WHERE ID = 3 AND NAME = 'Coriça')");
+			statement.execute(
+					"INSERT INTO SYMPTONS (ID, NAME) SELECT 4, 'Falta de Ar' WHERE NOT EXISTS (SELECT 1 FROM SYMPTONS WHERE ID = 4 AND NAME = 'Falta de Ar')");
+			statement.execute(
+					"INSERT INTO SYMPTONS (ID, NAME) SELECT 5, 'Cansaço' WHERE NOT EXISTS (SELECT 1 FROM SYMPTONS WHERE ID = 5 AND NAME = 'Cansaço')");
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			statement.close();
+			connection.close();
+		}
+	}
+
+	public DBConnection() throws SQLException {
+		this.connect();
+	}
+
 }

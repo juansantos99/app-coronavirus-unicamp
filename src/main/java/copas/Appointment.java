@@ -7,7 +7,7 @@ public class Appointment {
 	private String patientName;
 	private String date;
 	private HealthProfessional prof;
-	
+
 	public Appointment(String patientName, String date, HealthProfessional prof) {
 		this.patientName = patientName;
 		this.date = date;
@@ -24,10 +24,8 @@ public class Appointment {
 		this.prof = prof;
 	}
 
+	public Appointment() {
 
-	public Appointment()
-	{
-		
 	}
 
 	public long getCpf() {
@@ -81,11 +79,11 @@ public class Appointment {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	
+
 	public HealthProfessional getProf() {
 		return prof;
 	}
-	
+
 	public void setProf(HealthProfessional prof) {
 		this.prof = prof;
 	}
