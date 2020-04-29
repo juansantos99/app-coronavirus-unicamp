@@ -32,10 +32,7 @@ public class DBSymptonsPatient {
 				PreparedStatement select = connection.prepareStatement("INSERT into PATIENT_SYMPTONS(SYMPTONS_ID,PATIENT_CPF) values (?,?)",Statement.RETURN_GENERATED_KEYS);
 				select.setInt(1,idSintoma);
 				select.setInt(2,cpf);
-				System.out.println("ate aqui ok");
-				System.out.println(select);
 				int affectedRows = select.executeUpdate();
-				System.out.println("ate aqui ok2");
 	
 		        if (affectedRows == 0) {
 		            throw new SQLException("Updating Symptons, no rows affected.");
