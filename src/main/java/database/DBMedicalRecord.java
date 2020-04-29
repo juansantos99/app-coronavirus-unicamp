@@ -21,7 +21,7 @@ public class DBMedicalRecord {
 		return this.id;
 	}
 
-	public MedicalRecord showMedicalRecord(int id) throws SQLException {
+	public MedicalRecord showMedicalRecord(long cpf) throws SQLException {
 		MedicalRecord document = null;
 
 		Connection connection = null;
@@ -30,9 +30,9 @@ public class DBMedicalRecord {
 
 		try {
 			connection = DriverManager.getConnection("jdbc:sqlite:corona.db");
-			select = connection.prepareStatement("select * from MEDICAL_RECORD where ID = ?");
+			select = connection.prepareStatement("select * from MEDICAL_RECORD where PATIENT_CPF = ?");
 
-			select.setInt(1, id);
+			select.setLong(1, cpf);
 
 			resultSet = select.executeQuery();
 
@@ -63,15 +63,14 @@ public class DBMedicalRecord {
 		try {
 			connection = DriverManager.getConnection("jdbc:sqlite:corona.db");
 			statement = connection.prepareStatement(
-					"INSERT INTO MEDICAL_RECORD(ID, STATUS, RECORD_DATE, PATIENT_CPF, DOCTOR_ID, DIAGNOSIS) VALUES(?,?,?,?,?,?)",
+					"INSERT INTO MEDICAL_RECORD(STATUS, RECORD_DATE, PATIENT_CPF, DOCTOR_ID, DIAGNOSIS) VALUES(?,?,?,?,?)",
 					Statement.RETURN_GENERATED_KEYS);
-
-			statement.setInt(1, generatedId);
-			statement.setString(2, status);
-			statement.setString(3, date);
-			statement.setLong(4, patientCpf);
-			statement.setInt(5, doctor_id);
-			statement.setString(6, diagnosis);
+			
+			statement.setString(1, status);
+			statement.setString(2, date);
+			statement.setLong(3, patientCpf);
+			statement.setInt(4, doctor_id);
+			statement.setString(5, diagnosis);
 
 			int affectedRows = statement.executeUpdate();
 

@@ -13,8 +13,8 @@ public class Patient {
 	private Symptons[] symptons;
 
 	public String toString() {
-		return "Nome: " + this.name + " - Endereço: " + this.address + " - Nascimento: " + this.bornDate + " - Estado: "
-				+ this.status;
+		return "Nome: " + this.name + " - Endereço: " + this.address + " - Cpf: " + this.cpf + " - Rg: "
+				+ this.rg;
 	}
 
 	public Patient(long cpf, long rg, String name, String email, String susCard, String bornDate, String address,

@@ -43,23 +43,25 @@ public class Main {
 		iOpcaoMenu = scan.nextInt();
 		scan.nextLine();
 
-		if (iOpcaoMenu == 1 || iOpcaoMenu == 2) {
-			System.out.println("Você deseja: \n1 - Fazer login \n2 - Cadastrar");
-			iAction = scan.nextInt();
-			scan.nextLine();
-		}
-
-		while (iOpcaoMenu < 1 || iOpcaoMenu > 3) {
-			System.out.println("Opção inválida!");
-			System.out.println("Você deseja: \n1 - Fazer login \n2 - Cadastrar");
-			iAction = scan.nextInt();
-			scan.nextLine();
-		}
-
+	
 		while (iOpcaoMenu != 3) {
+			
+			if (iOpcaoMenu == 1 || iOpcaoMenu == 2) {
+				System.out.println("Você deseja: \n1 - Fazer login \n2 - Cadastrar");
+				iAction = scan.nextInt();
+				scan.nextLine();
+			}
+
+			while (iOpcaoMenu < 1 || iOpcaoMenu > 3) {
+				System.out.println("Opção inválida!");
+				System.out.println("Você deseja: \n1 - Fazer login \n2 - Cadastrar");
+				iAction = scan.nextInt();
+				scan.nextLine();
+			}
+			
 			switch (iOpcaoMenu) {
 			/* Quando o usuário for médico */
-
+		
 			case 1:
 
 				/* Médico realiza login */
@@ -83,7 +85,7 @@ public class Main {
 						System.out.println("1 - Agendar visita");
 						System.out.println("2 - Criar um novo prontuário");
 						System.out.println("3 - Visualizar os Pacientes por cpf");
-						System.out.println("4 - Visualizar pacientes");
+						/*System.out.println("4 - Visualizar pacientes");*/
 						System.out.println("5 - Visualizar o prontu�rio");
 						System.out.println("6 - Visualizar Agenda");
 						System.out.println("7 - Sair");
@@ -110,6 +112,7 @@ public class Main {
 
 							System.out.println("Digite o CPF do paciente: ");
 							int patient_cpf = scan.nextInt();
+							scan.nextLine();
 
 							System.out.println("Digite a data (dia/mês/ano): ");
 							String medical_record_date = scan.nextLine();
@@ -138,8 +141,16 @@ public class Main {
 							System.out.println(patient);
 							break;
 						case 4:
-
+							dbpMenu.ShowPatientAll(); 
+						case 5: 
+							
+							System.out.println("Digite o CPF do paciente:");
+							iCpf = scan.nextLong();
+							scan.nextLine();
+							MedicalRecord medicalrecord = dbMedicalRecord.showMedicalRecord(iCpf);
+							System.out.println(medicalrecord);
 							break;
+							
 						case 7:
 							System.out.println("Você saiu do programa");
 							iOpcaoMenu = 7;
@@ -170,8 +181,6 @@ public class Main {
 						// TODO: handle exception
 					}
 				}
-				iOpcaoMenu = 4;
-				iAction = 3;
 
 				break;
 
@@ -199,6 +208,7 @@ public class Main {
 					do {
 						System.out.println("1 - Cadastrar Sintomas");
 						System.out.println("2 - Visualizar Visitas");
+						System.out.println("3 - Visualizar Prontu�rio");
 						System.out.println("7 - Sair");
 						opcao = scan.nextInt();
 						switch (opcao) {
@@ -224,6 +234,10 @@ public class Main {
 								int idSintoma = scan.nextInt();
 								SymptonsPatient simyptonspatient = dbSymptonsPatient.RegisterSymptons(idSintoma, iCpf);
 							}
+							break;
+						case 3:	
+							MedicalRecord medicalrecord = dbMedicalRecord.showMedicalRecord(iCpf);
+							System.out.println(medicalrecord);
 							break;
 						case 7:
 							System.out.println("Voc� saiu do programa");
