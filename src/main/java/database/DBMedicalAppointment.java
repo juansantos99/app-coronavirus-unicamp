@@ -18,8 +18,7 @@ public class DBMedicalAppointment {
 	
 	Connection connection = null;
 	
-	public DBMedicalAppointment(Connection dbConnection) {
-		this.connection = dbConnection;
+	public DBMedicalAppointment() {
 	}
 	
 	public void createAppointment(int cpf, int idHealthProfissional, java.util.Date dateAppointment){
@@ -28,7 +27,7 @@ public class DBMedicalAppointment {
 	
 		try {
 			
-			select = this.connection.prepareStatement("insert into MEDICAL_APPOINTMENT(DATE,PACIENT_CPF,HEALTHPROFESSIONAL_ID) values(?,?,?)");
+			select = DBConnection.getConnection(connection).prepareStatement("insert into MEDICAL_APPOINTMENT(DATE,PACIENT_CPF,HEALTHPROFESSIONAL_ID) values(?,?,?)");
 			
 			select.setDate(1,  (Date) dateAppointment);
 			select.setInt(2,  cpf);
@@ -36,6 +35,8 @@ public class DBMedicalAppointment {
 			
 			
 			select.executeUpdate();
+			
+			this.connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		
@@ -50,7 +51,7 @@ public class DBMedicalAppointment {
 		
 		try {
 			
-			select = this.connection.prepareStatement("select PATIENT_CPF,HEALTHPROFESSIONAL_ID  from MEDICAL_APPOINTMENT where id = ?");
+			select = DBConnection.getConnection(connection).prepareStatement("select PATIENT_CPF,HEALTHPROFESSIONAL_ID  from MEDICAL_APPOINTMENT where id = ?");
 			select.setInt(1,  id);
 		    res = select.executeQuery();
 			select.executeUpdate();
@@ -62,6 +63,7 @@ public class DBMedicalAppointment {
 				listAppointment[listAppointment.length] = a;
 			}
 			
+			this.connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		

@@ -17,46 +17,41 @@ import main.java.copas.SymptonsPatient;
 public class DBSymptonsPatient {
 
 	Connection connection = null;
+	
 	private int id = 0;
 	
-	public DBSymptonsPatient(Connection dbConnection) {
-		this.connection = dbConnection;
-	}
-	
-	public Connection getConnection() throws SQLException {
-		if (connection == null) {
-			return DriverManager.getConnection("jdbc:sqlite:corona.db");
-		}
-			
-		return connection;
+	public DBSymptonsPatient() {
 	}
 
 	public SymptonsPatient RegisterSymptons (int idSintoma, int cpf) {
 			int generatedId = 0;		
-					
+			Connection connection = null;
+			
 			try {
-	
-				PreparedStatement select = this.getConnection().prepareStatement("INSERT into PATIENT_SYMPTONS(SYMPTONS_ID,PATIENT_CPF) values (?,?)",Statement.RETURN_GENERATED_KEYS);
+				connection = DBConnection.getConnection(connection);
+				PreparedStatement select = connection.prepareStatement("INSERT into PATIENT_SYMPTONS(SYMPTONS_ID,PATIENT_CPF) values (?,?)",Statement.RETURN_GENERATED_KEYS);
 				select.setInt(1,idSintoma);
 				select.setInt(2,cpf);
+				System.out.println("ate aqui ok");
+				System.out.println(select);
 				int affectedRows = select.executeUpdate();
+				System.out.println("ate aqui ok2");
 	
 		        if (affectedRows == 0) {
 		            throw new SQLException("Updating Symptons, no rows affected.");
 		        }
-		        
-		        System.out.println("ate aqui ok");
-				
+
 				ResultSet generatedKeys = select.getGeneratedKeys();
 				
 	            if (generatedKeys.next()) {
 	                generatedId = (int) generatedKeys.getLong(1);
 	            }
 	            else {
+	            	this.connection.close();
 	                throw new SQLException("Updating Symptons, no ID obtained.");
 	            }
 	            
-	            generatedKeys.close();
+	            connection.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

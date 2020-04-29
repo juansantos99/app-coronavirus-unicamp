@@ -21,16 +21,7 @@ import main.java.copas.SymptonsPatient;
 public class DBSymptons {
 
 	Connection connection = null;
-	public DBSymptons(Connection dbConnection) {
-		this.connection = dbConnection;
-	}
-	
-	public Connection getConnection() throws SQLException {
-		if (connection == null) {
-			return DriverManager.getConnection("jdbc:sqlite:corona.db");
-		}
-			
-		return connection;
+	public DBSymptons() {
 	}
 		
 	public Symptons ShowSymptons(int cpf) throws SQLException {
@@ -40,37 +31,45 @@ public class DBSymptons {
 		Symptons doc = null;
 		try {
 
-			select = this.connection.prepareStatement("select NAME from SYMPTONS_PACIENT inner join SYMPTONS on (ID = ID) where CPF = ? ");
+			select = DBConnection.getConnection(connection).prepareStatement("select NAME from SYMPTONS_PACIENT inner join SYMPTONS on (ID = ID) where CPF = ? ");
 			select.setInt(1, cpf);
             res = select.executeQuery();
 			
 			doc = new Symptons(res.getString("NAME"));
 		
-
+			res.close();
+			this.connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return doc;
 	}	
 	public Symptons ListSymptons(int idSintomas) throws SQLException {	
-	
 		PreparedStatement select = null;
 		ResultSet res = null;
 		Symptons doc = null;
 		try {
-
-			select = getConnection().prepareStatement("select ID,NAME from SYMPTONS where ID = ?");
+			this.connection = DBConnection.getConnection(connection);
+			select = this.connection.prepareStatement("select ID,NAME from SYMPTONS where ID = ?");
             select.setInt(1,idSintomas);
 			res = select.executeQuery();
 			
 			if (res.next()) {
 				doc = new Symptons(idSintomas,res.getString("NAME"));
 			}
-			
-			res.close();
 		} catch (SQLException e) {
+			
 			e.printStackTrace();
 		}
+		finally {
+			  if (this.connection != null) {
+			    try {
+			      this.connection.close(); // <-- This is important
+			    } catch (SQLException e) {
+			      /* handle exception */
+			    }
+			  }
+			}
 		return doc;
 	}
 }

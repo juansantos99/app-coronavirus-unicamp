@@ -16,12 +16,12 @@ public class Main {
 		Connection dbConnection = null;
 		Scanner scan = new Scanner(System.in);
 
-		dbConnection = DBConnection.main();
+		DBConnection.main();
 		
-		DBSymptons dbsymptons = new DBSymptons(dbConnection);
-		DBPatient dbpMenu = new DBPatient(dbConnection);
-		DBHealthProfessional dbhpMenu = new DBHealthProfessional(dbConnection);
-		DBSymptonsPatient dbDBsymptonspatient = new DBSymptonsPatient(dbConnection);
+		DBSymptons dbsymptons = new DBSymptons();
+		DBPatient dbpMenu = new DBPatient();
+		DBHealthProfessional dbhpMenu = new DBHealthProfessional();
+		DBSymptonsPatient dbDBsymptonspatient = new DBSymptonsPatient();
 
 		HealthProfessional doc = null;
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -207,10 +207,13 @@ public class Main {
 									}
 									System.out.println("Quantos destes sintomas voce esta sentindo?");
 									int sint = scan.nextInt();
+									scan.nextLine();
 									
 									System.out.println("Digite os Sintomas que possu� pelo id");
 									for(i=0;i<sint;i++) {
 										int idSintoma = scan.nextInt();
+										scan.nextLine();
+										
 										SymptonsPatient simyptonspatient = dbDBsymptonspatient.RegisterSymptons(idSintoma, iCpf); 
 									}
 									//System.out.println(simyptonspatient);

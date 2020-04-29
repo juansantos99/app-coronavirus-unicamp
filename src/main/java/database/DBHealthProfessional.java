@@ -17,9 +17,10 @@ public class DBHealthProfessional {
 	private int id = 0;
 	
 	
-	public DBHealthProfessional(Connection dbConnection) {
-		this.connection = dbConnection;
+	public DBHealthProfessional() {
+		
 	}
+	
 	public int nextId() {
 		this.id = this.id + 1;
 
@@ -34,7 +35,7 @@ public class DBHealthProfessional {
 		ResultSet res = null;
 		
 		try {
-			select = this.connection.prepareStatement("select * from HEALTHPROFESSIONAL where ID = ?");
+			select = DBConnection.getConnection(connection).prepareStatement("select * from HEALTHPROFESSIONAL where ID = ?");
 			
 			select.setInt(1, id);
 			
@@ -42,6 +43,7 @@ public class DBHealthProfessional {
 			
 			doc = new HealthProfessional(id, res.getInt("CPF"), res.getInt("RG"), res.getString("NAME"), res.getString("ROLE"));
 	
+			this.connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -54,7 +56,7 @@ public class DBHealthProfessional {
 		int generatedId = 0;
 		
 		try {
-			PreparedStatement statement = this.connection.prepareStatement("INSERT INTO HEALTHPROFESSIONAL(CPF, RG, NAME, ROLE) VALUES(?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement statement = DBConnection.getConnection(connection).prepareStatement("INSERT INTO HEALTHPROFESSIONAL(CPF, RG, NAME, ROLE) VALUES(?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
 			statement.setInt(1,  cpf);
 			statement.setInt(2, rg);
 			statement.setString(3, name);
@@ -72,9 +74,10 @@ public class DBHealthProfessional {
                 generatedId = (int) generatedKeys.getLong(1);
             }
             else {
+            	this.connection.close();
                 throw new SQLException("Creating doctor failed, no ID obtained.");
             }
-
+            this.connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -92,7 +95,7 @@ public class DBHealthProfessional {
 		
 		PreparedStatement select;
 		try {
-			select = this.connection.prepareStatement("select * from HEALTHPROFESSIONAL where CPF = ?");
+			select = DBConnection.getConnection(connection).prepareStatement("select * from HEALTHPROFESSIONAL where CPF = ?");
 			
 			select.setInt(1, cpf);
 			ResultSet resultSet = select.executeQuery();			
@@ -100,6 +103,8 @@ public class DBHealthProfessional {
 			if (resultSet.next()) {
 				exists = true;
 			}
+			
+			this.connection.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();

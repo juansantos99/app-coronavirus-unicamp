@@ -17,8 +17,7 @@ public class DBMedicalRecord {
   
 	private int id = 0;
 	
-	public DBMedicalRecord(Connection dbConnection) {
-		this.connection = dbConnection;
+	public DBMedicalRecord() {
 	}
 
 	public int nextId() {
@@ -34,7 +33,7 @@ public class DBMedicalRecord {
 		ResultSet res = null;
 		
 		try {
-			select = this.connection.prepareStatement("select * from MEDICALRECORD where ID = ?");
+			select = DBConnection.getConnection(connection).prepareStatement("select * from MEDICALRECORD where ID = ?");
 			
 			select.setInt(1, id);
 			
@@ -42,6 +41,7 @@ public class DBMedicalRecord {
 			
 			document = new MedicalRecord(res.getDate("RECORD_DATE"), res.getString("STATUS"), res.getInt("PATIENT_CPF"), res.getInt("DOCTOR_ID"), res.getString("DIAGNOSIS"), res.getInt("EXAM_ID"));
 			
+			this.connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -54,7 +54,7 @@ public class DBMedicalRecord {
 		int generatedId = 0;
 		
 		try {
-			PreparedStatement statement = this.connection.prepareStatement("INSERT INTO MEDICAL_RECORD(ID, STATUS, RECORD_DATE, PATIENT_CPF, DOCTOR_ID, DIAGNOSIS, EXAM_ID) VALUES(?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement statement = DBConnection.getConnection(connection).prepareStatement("INSERT INTO MEDICAL_RECORD(ID, STATUS, RECORD_DATE, PATIENT_CPF, DOCTOR_ID, DIAGNOSIS, EXAM_ID) VALUES(?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
       
 		      statement.setInt    (1, generatedId);
 			  statement.setString (2, status);
@@ -76,8 +76,10 @@ public class DBMedicalRecord {
                 generatedId = (int) generatedKeys.getLong(1);
             }
             else {
+            	this.connection.close();
                 throw new SQLException("Creating medical report failed, no ID obtained.");
             }
+            this.connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

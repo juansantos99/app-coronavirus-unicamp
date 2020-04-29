@@ -7,8 +7,7 @@ import main.java.copas.Patient;
 public class DBPatient {
 	
 	Connection connection = null;
-	public DBPatient(Connection dbConnection) {
-		this.connection = dbConnection;
+	public DBPatient() {
 	}
 
 	public Patient SignUp(int cpf, String password) throws SQLException {
@@ -18,19 +17,29 @@ public class DBPatient {
 		ResultSet res = null;
 		
 		try {
-			select = this.connection.prepareStatement("select * from PATIENTS where CPF = ? and PASSWORD = ?");
+			select = DBConnection.getConnection(connection).prepareStatement("select * from PATIENTS where CPF = ? and PASSWORD = ?");
 			
 			select.setInt(1, cpf);
 			select.setString(2, password);
 			
 			res = select.executeQuery();
 			
-			patient = new Patient(cpf, res.getInt("RG"), res.getString("NAME"), res.getString("EMAIL"), res.getString("SUSCARD"), res.getString("BORNDATE"), res.getString("ADDRESS"), password, res.getString("STATUS"));
+			if (res.next()) {
+				patient = new Patient(cpf, res.getInt("RG"), res.getString("NAME"), res.getString("EMAIL"), res.getString("SUSCARD"), res.getString("BORNDATE"), res.getString("ADDRESS"), password, res.getString("STATUS"));
+			}
 	
-			res.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		finally {
+			  if (this.connection != null) {
+			    try {
+			      this.connection.close(); // <-- This is important
+			    } catch (SQLException e) {
+			      /* handle exception */
+			    }
+			  }
+			}
 		
 		return patient;
 	}
@@ -40,7 +49,7 @@ public class DBPatient {
 		Patient patient = new Patient(cpf, rg, name, email, susCard, bornDate, address, password, "Sem consulta");
 		
 		try {
-			PreparedStatement statement = this.connection.prepareStatement("INSERT INTO PATIENTS(CPF, RG, NAME, EMAIL, SUSCARD, BORNDATE, ADDRESS, PASSWORD, STATUS) VALUES(?,?,?,?,?,?,?,?,?)");
+			PreparedStatement statement = DBConnection.getConnection(connection).prepareStatement("INSERT INTO PATIENTS(CPF, RG, NAME, EMAIL, SUSCARD, BORNDATE, ADDRESS, PASSWORD, STATUS) VALUES(?,?,?,?,?,?,?,?,?)");
 			statement.setInt(1,  cpf);
 			statement.setInt(2, rg);
 			statement.setString(3, name);
@@ -52,9 +61,19 @@ public class DBPatient {
 			statement.setString(9, "Sem consulta");
 			
 			statement.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		finally {
+			  if (this.connection != null) {
+			    try {
+			      this.connection.close(); // <-- This is important
+			    } catch (SQLException e) {
+			      /* handle exception */
+			    }
+			  }
+			}
 		
 		System.out.println("Usuário criado com sucesso");
 		
@@ -68,7 +87,7 @@ public class DBPatient {
 		
 		PreparedStatement select;
 		try {
-			select = this.connection.prepareStatement("select * from PATIENTS where CPF = ?");
+			select = DBConnection.getConnection(connection).prepareStatement("select * from PATIENTS where CPF = ?");
 			
 			select.setInt(1, cpf);
 			ResultSet resultSet = select.executeQuery();			
@@ -76,10 +95,19 @@ public class DBPatient {
 			if (resultSet.next()) {
 				exists = true;
 			}
-
+			this.connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		finally {
+			  if (this.connection != null) {
+			    try {
+			      this.connection.close(); // <-- This is important
+			    } catch (SQLException e) {
+			      /* handle exception */
+			    }
+			  }
+			}
 		
 		return exists;
 	}
