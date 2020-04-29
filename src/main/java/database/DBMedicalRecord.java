@@ -36,9 +36,14 @@ public class DBMedicalRecord {
 
 			resultSet = select.executeQuery();
 
-			document = new MedicalRecord(resultSet.getString("RECORD_DATE"), resultSet.getString("STATUS"),
-					resultSet.getLong("PATIENT_CPF"), resultSet.getInt("DOCTOR_ID"), resultSet.getString("DIAGNOSIS"),
-					resultSet.getInt("EXAM_ID"));
+			document = new MedicalRecord(
+        resultSet.getString("RECORD_DATE"),
+        resultSet.getString("STATUS"),
+        resultSet.getLong("PATIENT_CPF"),
+        resultSet.getInt("DOCTOR_ID"),
+        resultSet.getString("DIAGNOSIS"),
+        resultSet.getInt("EXAM_ID")
+      );
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
