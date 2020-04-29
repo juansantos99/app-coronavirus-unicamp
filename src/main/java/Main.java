@@ -82,10 +82,10 @@ public class Main {
 					do {
 						System.out.println("1 - Agendar visita");
 						System.out.println("2 - Criar um novo prontuário");
-						System.out.println("3 - Visualizar os Pacientes por sintomas");
-						System.out.println("4 - Visualizar sintomas");
-						System.out.println("5 - Criar um novo prontuário");
-						System.out.println("6 - Atualizar Agenda");
+						System.out.println("3 - Visualizar os Pacientes por cpf");
+						System.out.println("4 - Visualizar pacientes");
+						System.out.println("5 - Visualizar o prontu�rio");
+						System.out.println("6 - Visualizar Agenda");
 						System.out.println("7 - Sair");
 						// System.out.println("7 - Sair");
 						opcao = scan.nextInt();
@@ -131,16 +131,21 @@ public class Main {
 
 							break;
 						case 3:
-
+							System.out.println("Digite o CPF do paciente:");
+							iCpf = scan.nextLong();
+							scan.nextLine();
+							Patient patient = dbpMenu.ShowPatient(iCpf);
+							System.out.println(patient);
+							break;
 						case 4:
 
 							break;
 						case 7:
 							System.out.println("Você saiu do programa");
-							iOpcaoMenu = 3;
+							iOpcaoMenu = 7;
 							break;
 						}
-					} while (iOpcaoMenu != 3);
+					} while (iOpcaoMenu != 7);
 					break;
 				} else {
 					System.out.println("Digite seu CPF:");
@@ -193,11 +198,7 @@ public class Main {
 					int opcao = 0;
 					do {
 						System.out.println("1 - Cadastrar Sintomas");
-						System.out.println("1 - Atualizar Sintomas");
-						System.out.println("1 - Atualizar Sintomas");
-						System.out.println("1 - Atualizar Sintomas");
-						System.out.println("1 - Atualizar Sintomas");
-						System.out.println("1 - Atualizar Sintomas");
+						System.out.println("2 - Visualizar Visitas");
 						System.out.println("7 - Sair");
 						opcao = scan.nextInt();
 						switch (opcao) {
