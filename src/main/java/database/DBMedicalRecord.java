@@ -35,7 +35,7 @@ public class DBMedicalRecord {
 			
 			res = select.executeQuery();
 			
-			document = new MedicalRecord(res.getDate("RECORD_DATE"), res.getString("STATUS"), res.getInt("PATIENT_CPF"), res.getInt("DOCTOR_ID"), res.getString("DIAGNOSIS"), res.getInt("EXAM_ID"));
+			document = new MedicalRecord(res.getString("RECORD_DATE"), res.getString("STATUS"), res.getInt("PATIENT_CPF"), res.getInt("DOCTOR_ID"), res.getString("DIAGNOSIS"));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

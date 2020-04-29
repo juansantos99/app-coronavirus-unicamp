@@ -41,18 +41,18 @@ public class Main {
 		int iOpt = 0;
 		int iAction = 0;
 
-		System.out.println("Você é um médico ou um paciente?\n1- Médico \n2- Paciente\n3- Sair ");
+		System.out.println("Você é um médico ou um paciente?\n1 - Médico \n2 - Paciente\n3 - Sair ");
 		iOpt = scan.nextInt();
 		
 		if(iOpt == 1 || iOpt == 2)
 		{	
-			System.out.println("Você deseja: \n1- Fazer login \n2- Cadastrar");
+			System.out.println("Você deseja: \n1 - Fazer login \n2 - Cadastrar");
 			iAction = scan.nextInt();
 		}
 
 		while (iOpt < 1 || iOpt > 3) {
 			System.out.println("Opção inválida!");
-			System.out.println("Você deseja: \n1- Fazer login \n2- Cadastrar");
+			System.out.println("Você deseja: \n1 - Fazer login \n2 - Cadastrar");
 			iAction = scan.nextInt();
 		}
 		//while (iOpt != 3) {}
