@@ -10,19 +10,15 @@ public class MedicalRecord {
     private String diagnosis;
     private int exam_id;
 
-    
-
     public MedicalRecord(Date date, String status, int patientCpf,int doctor_id, String diagnosis,int exam_id) {
     	super();
     	this.setDate(date);
-        this.setStatus(status);
-        this.setPatientCpf(patientCpf);
-        this.setDoctor_id(doctor_id);
-        this.setDiagnosis(diagnosis);
-        this.setExam_id(exam_id);
+      this.setStatus(status);
+      this.setPatientCpf(patientCpf);
+      this.setDoctor_id(doctor_id);
+      this.setDiagnosis(diagnosis);
+      this.setExam_id(exam_id);
     }
-    
-
     
     public int getDoctor_id() {
 		return doctor_id;

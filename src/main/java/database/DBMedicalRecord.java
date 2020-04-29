@@ -91,10 +91,10 @@ public class DBMedicalRecord {
   
 	/*
   public Boolean UserExists(int medicalRecord_id) {
-		
 		Boolean exists = false;
 		
-		PreparedStatement select;
+    PreparedStatement select;
+    
 		try {
 			select = this.connection.prepareStatement("select * from MEDICAL_RECORD where ID = ?");
 			
