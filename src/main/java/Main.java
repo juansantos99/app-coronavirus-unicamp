@@ -29,7 +29,7 @@ public class Main {
 
 		int iId = 0;
 		int iRg = 0;
-		int iCpf = 0;
+		long iCpf = 0;
 		String sName = "";
 		String sRole = "";
 		String sEmail = "";
@@ -83,7 +83,7 @@ public class Main {
 						int opcao = 0;
 						do {
 							System.out.println("1 - Agendar visita");
-							System.out.println("2 - Visualizar todos os Pacientes");
+							System.out.println("2 - Criar um novo prontuário");
 							System.out.println("3 - Visualizar os Pacientes por sintomas");
 							System.out.println("4 - Visualizar sintomas");
 							System.out.println("5 - Criar um novo prontuário");
@@ -107,14 +107,8 @@ public class Main {
 							//		System.out.println("Sua consulta ficou agendada para o dia: " + format.format(appointment.getDate()));
 									break;
 								case 2:
-						
-									break;
-								case 3:
-									
-									
-								case 4:
                   scan.nextLine();
-                  
+                    
                   System.out.println("Digite o CPF do paciente: ");
                   int patient_cpf = scan.nextInt();
 
@@ -136,6 +130,13 @@ public class Main {
                   System.out.println("Status do paciente: " + patient_medical_record.getStatus());
 
                   break;
+								case 3:
+									
+									
+								case 4:
+                  
+
+                  break;
 								case 7:
 									System.out.println("Voc� saiu do programa");
 									iOpt = 3;
@@ -146,7 +147,7 @@ public class Main {
 						break;
 					} else{
 						System.out.println("Digite seu CPF:");
-						iCpf = scan.nextInt();
+						iCpf = scan.nextLong();
 						scan.nextLine();
 	
 						System.out.println("Digite seu RG:");

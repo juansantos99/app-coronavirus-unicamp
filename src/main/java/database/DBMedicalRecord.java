@@ -44,7 +44,7 @@ public class DBMedicalRecord {
 		return document;
 	}
 	
-	public MedicalRecord createMedicalRecord(String date, String status, int patientCpf, int doctor_id, String diagnosis) {		
+	public MedicalRecord createMedicalRecord(String date, String status, long patientCpf, int doctor_id, String diagnosis) {		
 		int generatedId = 0;
 		
 		try {
@@ -53,7 +53,7 @@ public class DBMedicalRecord {
 		  statement.setInt(1, generatedId);
 		  statement.setString(2, status);
 			statement.setString(3, date);
-		  statement.setInt(4, patientCpf);
+		  statement.setLong(4, patientCpf);
 		  statement.setInt(5, doctor_id);
 		  statement.setString(6, diagnosis);
 			

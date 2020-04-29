@@ -11,7 +11,7 @@ public class DBPatient {
 		this.connection = dbConnection;
 	}
 
-	public Patient SignUp(int cpf, String password) throws SQLException {
+	public Patient SignUp(long cpf, String password) throws SQLException {
 
 		Patient patient = null;
 		PreparedStatement select = null;
@@ -20,7 +20,7 @@ public class DBPatient {
 		try {
 			select = this.connection.prepareStatement("select * from PATIENTS where CPF = ? and PASSWORD = ?");
 			
-			select.setInt(1, cpf);
+			select.setLong(1, cpf);
 			select.setString(2, password);
 			
 			res = select.executeQuery();
@@ -34,13 +34,13 @@ public class DBPatient {
 		return patient;
 	}
 	
-	public Patient SignIn(int cpf, int rg, String name, String email, String susCard, String bornDate, String address, String password) throws SQLException {		
+	public Patient SignIn(long cpf, int rg, String name, String email, String susCard, String bornDate, String address, String password) throws SQLException {		
 
 		Patient patient = new Patient(cpf, rg, name, email, susCard, bornDate, address, password, "Sem consulta");
 		
 		try {
 			PreparedStatement statement = this.connection.prepareStatement("INSERT INTO PATIENTS(CPF, RG, NAME, EMAIL, SUSCARD, BORNDATE, ADDRESS, PASSWORD, STATUS) VALUES(?,?,?,?,?,?,?,?,?)");
-			statement.setInt(1,  cpf);
+			statement.setLong(1,  cpf);
 			statement.setInt(2, rg);
 			statement.setString(3, name);
 			statement.setString(4, email);
@@ -60,7 +60,7 @@ public class DBPatient {
 		return patient;
 	}
 	
-	public Boolean UserExists(int cpf) throws SQLException {
+	public Boolean UserExists(long cpf) throws SQLException {
 
 		
 		Boolean exists = false;
@@ -69,7 +69,7 @@ public class DBPatient {
 		try {
 			select = this.connection.prepareStatement("select * from PATIENTS where CPF = ?");
 			
-			select.setInt(1, cpf);
+			select.setLong(1, cpf);
 			ResultSet resultSet = select.executeQuery();			
 
 			if (resultSet.next()) {

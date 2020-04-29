@@ -3,11 +3,11 @@ package main.java.copas;
 public class MedicalRecord {
   private String date;
   private String status;
-  private int patientCpf;
+  private long patientCpf;
   private int doctor_id;
   private String diagnosis;
 
-  public MedicalRecord(String date, String status, int patientCpf,int doctor_id, String diagnosis) {
+  public MedicalRecord(String date, String status, long patientCpf, int doctor_id, String diagnosis) {
     super();
     this.setDate(date);
     this.setStatus(status);
@@ -40,11 +40,11 @@ public class MedicalRecord {
     this.status = status;
   }
 
-  public int getPatientCpf() {
+  public long getPatientCpf() {
     return this.patientCpf;
   }
 
-  public void setPatientCpf(int patientCpf) {
+  public void setPatientCpf(long patientCpf) {
     this.patientCpf = patientCpf;
   }
 

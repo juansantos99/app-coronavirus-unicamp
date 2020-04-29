@@ -49,13 +49,13 @@ public class DBHealthProfessional {
 		return doc;
 	}
 	
-	public HealthProfessional SignIn(int cpf, int rg, String name, String role) throws SQLException {		
+	public HealthProfessional SignIn(long cpf, int rg, String name, String role) throws SQLException {		
 
 		int generatedId = 0;
 		
 		try {
 			PreparedStatement statement = this.connection.prepareStatement("INSERT INTO HEALTHPROFESSIONAL(CPF, RG, NAME, ROLE) VALUES(?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-			statement.setInt(1,  cpf);
+			statement.setLong(1, cpf);
 			statement.setInt(2, rg);
 			statement.setString(3, name);
 			statement.setString(4, role);
@@ -86,7 +86,7 @@ public class DBHealthProfessional {
 		return doc;
 	}
 	
-	public Boolean UserExists(int cpf) throws SQLException {
+	public Boolean UserExists(long cpf) throws SQLException {
 
 		Boolean exists = false;
 		
@@ -94,7 +94,7 @@ public class DBHealthProfessional {
 		try {
 			select = this.connection.prepareStatement("select * from HEALTHPROFESSIONAL where CPF = ?");
 			
-			select.setInt(1, cpf);
+			select.setLong(1, cpf);
 			ResultSet resultSet = select.executeQuery();			
 
 			if (resultSet.next()) {
