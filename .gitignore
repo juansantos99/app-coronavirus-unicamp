@@ -2,3 +2,5 @@
 *.sqlite
 /target/
 *.db
+/.vs/app-coronavirus-unicamp/v16
+/.vs
