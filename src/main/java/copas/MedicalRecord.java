@@ -8,7 +8,7 @@ public class MedicalRecord {
     private String diagnosis;
     private int exam_id;
 
-    public MedicalRecord(String date, String status, int patientCpf, int doctor_id, String diagnosis, int exam_id) {
+    public MedicalRecord(String date, String status, long patientCpf, int doctor_id, String diagnosis, int exam_id) {
       this.setDate(date);
       this.setStatus(status);
       this.setPatientCpf(patientCpf);
@@ -19,15 +19,16 @@ public class MedicalRecord {
     
   public int getDoctor_id() {
 	  return doctor_id;
-	}
+  }
 
-	public void setDoctor_id(int doctor_id) {
-		this.doctor_id = doctor_id;
-	}
+  public void setDoctor_id(int doctor_id) {
+	this.doctor_id = doctor_id;
+  }
 
-	public String getDate() {
+  public String getDate() {
     return this.date;
   }
+  
   public void setDate(String date) {
       this.date = date;
   }
@@ -48,13 +49,13 @@ public class MedicalRecord {
       this.diagnosis = diagnosis;
   }
     
-	public int getExam_id() {
-		return exam_id;
-	}
+  public int getExam_id() {
+	return exam_id;
+  }
 
-	public void setExam_id(int exam_id) {
-		this.exam_id = exam_id;
-	}
+  public void setExam_id(int exam_id) {
+	this.exam_id = exam_id;
+  }
   
   public long getPatientCpf() {
     return this.patientCpf;

@@ -1,7 +1,5 @@
 package main.java.database;
 
-import main.java.database.DBConnection;
-
 import java.sql.Date;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,24 +16,25 @@ public class DBMedicalAppointment {
 	
 	Connection connection = null;
 	
-	public DBMedicalAppointment(Connection dbConnection) {
-		this.connection = dbConnection;
+	public DBMedicalAppointment() {
 	}
 	
 	public void createAppointment(int cpf, int idHealthProfissional, java.util.Date dateAppointment){
 	  
 		PreparedStatement select = null;
 	
-		try {
-			
+		try (Connection connection = DriverManager.getConnection("jdbc:sqlite:corona.db")) {
 			select = this.connection.prepareStatement("insert into MEDICAL_APPOINTMENT(DATE,PACIENT_CPF,HEALTHPROFESSIONAL_ID) values(?,?,?)");
 			
 			select.setDate(1,  (Date) dateAppointment);
 			select.setInt(2,  cpf);
 			select.setInt(3,  idHealthProfissional);
 			
-			
 			select.executeUpdate();
+			
+			connection.close();
+			select.close();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		
@@ -48,7 +47,7 @@ public class DBMedicalAppointment {
 				
 		};
 		
-		try {
+		try (Connection connection = DriverManager.getConnection("jdbc:sqlite:corona.db")) {
 			
 			select = this.connection.prepareStatement("select PATIENT_CPF,HEALTHPROFESSIONAL_ID  from MEDICAL_APPOINTMENT where id = ?");
 			select.setInt(1,  id);
@@ -62,50 +61,16 @@ public class DBMedicalAppointment {
 				listAppointment[listAppointment.length] = a;
 			}
 			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		
-		}	
-		return listAppointment;
-	}
-	/*
-	public ShowAppointmentsPatient(int cpf) {
-		PreparedStatement select = null;
-		ResultSet res = null;
-		try {
+			connection.close();
+			select.close();
 			
-			select = this.connection.prepareStatment("select * from MEDICAL_APPOINTMENT where cpf = ?")
-			select.setInt(1,  cpf);
-		    res = select.executeQuery()
-			select.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		
 		}	
 		
-	}
-	*/
-	/*Como fazer verifica��o ?*/
-	/*
-	public void UpdateAppointment(int cpf, int idHealthProfissional, java.util.Date dateAppointment) {
-		  
-				PreparedStatement select = null;
-				ResultSet res = null;
-				try {
-					
-					select = this.connection.prepareStatement("insert into MEDICAL_APPOINTMENT(PACIENT_CPF,HEALTHPROFESSIONAL_ID,DATE) values(?,?,?)")
-					select.setInt(1,  cpf);
-					select.setInt(2,  idHealthProfissional);
-					select.setDate(3,  DateAppointment);
-					select.executeUpdate();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				
-				}
-		
-	}
-	*/
-		
+		return listAppointment;
+	}		
 }
 	
 	

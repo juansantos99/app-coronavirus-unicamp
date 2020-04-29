@@ -5,10 +5,7 @@ import java.sql.*;
 import main.java.copas.Patient;
 
 public class DBPatient {
-	
-	Connection connection = null;
-	public DBPatient(Connection dbConnection) {
-		this.connection = dbConnection;
+	public DBPatient() {
 	}
 
 	public Patient SignUp(long cpf, String password) throws SQLException {
@@ -17,13 +14,17 @@ public class DBPatient {
 		PreparedStatement select = null;
 		ResultSet res = null;
 		
-		try {
-			select = this.connection.prepareStatement("select * from PATIENTS where CPF = ? and PASSWORD = ?");
+		try (Connection connection = DriverManager.getConnection("jdbc:sqlite:corona.db")) {
+			select = connection.prepareStatement("select * from PATIENTS where CPF = ? and PASSWORD = ?");
 			
 			select.setLong(1, cpf);
 			select.setString(2, password);
 			
 			res = select.executeQuery();
+			
+			select.close();
+			connection.close();
+			res.close();
 			
 			patient = new Patient(cpf, res.getInt("RG"), res.getString("NAME"), res.getString("EMAIL"), res.getString("SUSCARD"), res.getString("BORNDATE"), res.getString("ADDRESS"), password, res.getString("STATUS"));
 	
@@ -38,8 +39,10 @@ public class DBPatient {
 
 		Patient patient = new Patient(cpf, rg, name, email, susCard, bornDate, address, password, "Sem consulta");
 		
-		try {
-			PreparedStatement statement = this.connection.prepareStatement("INSERT INTO PATIENTS(CPF, RG, NAME, EMAIL, SUSCARD, BORNDATE, ADDRESS, PASSWORD, STATUS) VALUES(?,?,?,?,?,?,?,?,?)");
+		PreparedStatement statement = null;
+		
+		try (Connection connection = DriverManager.getConnection("jdbc:sqlite:corona.db")) {
+			statement = connection.prepareStatement("INSERT INTO PATIENTS(CPF, RG, NAME, EMAIL, SUSCARD, BORNDATE, ADDRESS, PASSWORD, STATUS) VALUES(?,?,?,?,?,?,?,?,?)");
 			statement.setLong(1,  cpf);
 			statement.setInt(2, rg);
 			statement.setString(3, name);
@@ -51,6 +54,9 @@ public class DBPatient {
 			statement.setString(9, "Sem consulta");
 			
 			statement.executeUpdate();
+			
+			connection.close();
+			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -62,12 +68,12 @@ public class DBPatient {
 	
 	public Boolean UserExists(long cpf) throws SQLException {
 
-		
 		Boolean exists = false;
 		
-		PreparedStatement select;
-		try {
-			select = this.connection.prepareStatement("select * from PATIENTS where CPF = ?");
+		PreparedStatement select = null;
+		
+		try (Connection connection = DriverManager.getConnection("jdbc:sqlite:corona.db")) {
+			select = connection.prepareStatement("select * from PATIENTS where CPF = ?");
 			
 			select.setLong(1, cpf);
 			ResultSet resultSet = select.executeQuery();			
@@ -75,6 +81,10 @@ public class DBPatient {
 			if (resultSet.next()) {
 				exists = true;
 			}
+			
+			connection.close();
+			select.close();
+			resultSet.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -82,28 +92,5 @@ public class DBPatient {
 		
 		return exists;
 	}
-	/*public void showAllPatient() {
-		PreparedStatement select;
-		try {
-			select = this.connection.prepareStatement("select * from PATIENTS");
-			ResultSet resultSet = select.executeQuery();			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-	}*/
-   /*public void ShowPacientSymptons(int idSymptons) {
-    	PreparedStatement select = null;
-		ResultSet res = null;
-    	try {
-			select = this.connection.prepareStatement("select CPF,NAME from PATIENT_SYMPTONS inner join PATIENT on (ID = ID) where ID = ? ");
-			select.setInt(1, idSymptons);
-			res = select.executeQuery();			
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-	}*/
 }
 

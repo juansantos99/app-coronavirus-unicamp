@@ -1,7 +1,5 @@
 package main.java.database;
 
-//import java.sql.Statement;
-import java.sql.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,25 +8,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import main.java.database.DBConnection;
-
-import main.java.copas.Symptons;
 import main.java.copas.SymptonsPatient;
+
 public class DBSymptonsPatient {
 
-	Connection connection = null;
-	private int id = 0;
 	
-	public DBSymptonsPatient(Connection dbConnection) {
-		this.connection = dbConnection;
+	public DBSymptonsPatient() {
 	}
 
 	public SymptonsPatient RegisterSymptons (int idSintoma, long cpf) {
-			int generatedId = 0;		
+			int generatedId = 0;	
+			PreparedStatement select = null;
 					
-			try {
+			try (Connection connection = DriverManager.getConnection("jdbc:sqlite:corona.db")) {
 	
-				PreparedStatement select = this.connection.prepareStatement("INSERT into PATIENT_SYMPTONS(SYMPTONS_ID,PATIENT_CPF) values (?,?)",Statement.RETURN_GENERATED_KEYS);
+				select = connection.prepareStatement("INSERT into PATIENT_SYMPTONS(SYMPTONS_ID,PATIENT_CPF) values (?,?)",Statement.RETURN_GENERATED_KEYS);
 				select.setInt(1,idSintoma);
 				select.setLong(2,cpf);
 				int affectedRows = select.executeUpdate();
@@ -45,7 +39,11 @@ public class DBSymptonsPatient {
 	            else {
 	                throw new SQLException("Updating Symptons, no ID obtained.");
 	            }
-	            connection.close();    
+	            
+	            connection.close(); 
+	            select.close();
+	            generatedKeys.close();
+	            
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
