@@ -127,8 +127,14 @@ public class Main {
                   System.out.println("Digite o status do paciente: ");
                   String patient_status = scan.nextLine();
 
-                  dbMedicalRecord.createMedicalRecord(medical_record_date, patient_status, patient_cpf, iId, patient_diagnosis);
+                  MedicalRecord patient_medical_record = dbMedicalRecord.createMedicalRecord(medical_record_date, patient_status, patient_cpf, iId, patient_diagnosis);
                   
+                  System.out.println("Prontuário registrado com sucesso!");
+                  System.out.println("CPF do paciente: " + patient_medical_record.getPatientCpf());
+                  System.out.println("Data de criação do prontuário: " + patient_medical_record.getDate());
+                  System.out.println("Descrição do diagnóstico:" + patient_medical_record.getDiagnosis());
+                  System.out.println("Status do paciente: " + patient_medical_record.getStatus());
+
                   break;
 								case 7:
 									System.out.println("Voc� saiu do programa");
