@@ -1,10 +1,10 @@
 package main.java.copas;
 public class SymptonsPatient {
 	private int id;
-    private int cpf;
+    private long cpf;
     private int symptonsid;
 
-    public SymptonsPatient(int id,int symptonsid, int cpf) {
+    public SymptonsPatient(int id,int symptonsid, long cpf) {
         this.setId(id);
         this.setSymptonsid(symptonsid);
         this.setCpf(cpf);
@@ -20,10 +20,10 @@ public class SymptonsPatient {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getCpf() {
+	public long getCpf() {
 		return cpf;
 	}
-	public void setCpf(int cpf) {
+	public void setCpf(long cpf) {
 		this.cpf = cpf;
 	}
 	public int getSymptonsid() {

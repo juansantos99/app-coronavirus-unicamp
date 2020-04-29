@@ -23,14 +23,14 @@ public class DBSymptonsPatient {
 		this.connection = dbConnection;
 	}
 
-	public SymptonsPatient RegisterSymptons (int idSintoma, int cpf) {
+	public SymptonsPatient RegisterSymptons (int idSintoma, long cpf) {
 			int generatedId = 0;		
 					
 			try {
 	
 				PreparedStatement select = this.connection.prepareStatement("INSERT into PATIENT_SYMPTONS(SYMPTONS_ID,PATIENT_CPF) values (?,?)",Statement.RETURN_GENERATED_KEYS);
 				select.setInt(1,idSintoma);
-				select.setInt(2,cpf);
+				select.setLong(2,cpf);
 				int affectedRows = select.executeUpdate();
 	
 		        if (affectedRows == 0) {
@@ -49,7 +49,7 @@ public class DBSymptonsPatient {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			SymptonsPatient s = new  SymptonsPatient(generatedId,idSintoma,cpf);
+			SymptonsPatient s = new  SymptonsPatient(generatedId, idSintoma, cpf);
 			
 			return s;
 		}
