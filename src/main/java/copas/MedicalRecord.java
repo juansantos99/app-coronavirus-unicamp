@@ -1,5 +1,9 @@
 package main.java.copas;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MedicalRecord {
 	private String date;
 	private String status;
@@ -15,6 +19,20 @@ public class MedicalRecord {
 		this.setDoctor_id(doctor_id);
 		this.setDiagnosis(diagnosis);
 		this.setExam_id(exam_id);
+	}
+
+	public String toString() {
+		Date thisDate = null;
+		try {
+			SimpleDateFormat originalFormat = new SimpleDateFormat("ddMMyyyy");
+			thisDate = originalFormat.parse(this.date.toString());
+
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "Date: " + thisDate + " - Status do paciente: " + this.status + " - Diagnostico: " + this.diagnosis
+				+ " - Cpf: " + this.patientCpf;
 	}
 
 	public int getDoctor_id() {

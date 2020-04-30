@@ -14,7 +14,7 @@ public class Symptons {
 	}
 
 	public String toString() {
-		return "Descri��o: " + this.description;
+		return this.id + " Sintoma: " + this.description;
 	}
 
 	public Symptons(String description) {
